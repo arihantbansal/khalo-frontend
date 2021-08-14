@@ -11,6 +11,7 @@ import { ColorModeSwitcher } from "ColorModeSwitcher";
 import Home from "components/Home";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LandingPage from "pages/LandingPage";
+import Login from "pages/Login";
 
 const App = () => {
 	return (
@@ -26,6 +27,9 @@ const App = () => {
 								</Route>
 								<Route path="/landing" exact>
 									<LandingPage />
+								</Route>
+								<Route path="/login" exact>
+									<Login />
 								</Route>
 							</Switch>
 						</Router>
