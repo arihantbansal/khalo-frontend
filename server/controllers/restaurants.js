@@ -41,7 +41,7 @@ restaurantsRouter.put("/:id", auth.hasRole("manager"), async (req, res) => {
 
 	const updatedRestaurant = lodash.merge(restaurant, req.body);
 
-	const updatedProduct = await Restaurant.findByIdAndUpdate(
+	const newRestaurant = await Restaurant.findByIdAndUpdate(
 		id,
 		updatedRestaurant,
 		{
@@ -49,8 +49,8 @@ restaurantsRouter.put("/:id", auth.hasRole("manager"), async (req, res) => {
 		}
 	);
 
-	if (updatedProduct) {
-		res.status(200).json(updatedProduct.toJSON());
+	if (newRestaurant) {
+		res.status(200).json(newRestaurant.toJSON());
 	} else {
 		res.status(404).end();
 	}
@@ -66,3 +66,5 @@ restaurantsRouter.delete("/:id", auth.hasRole("manager"), async (req, res) => {
 		res.status(404).end();
 	}
 });
+
+module.exports = restaurantsRouter;
