@@ -5,7 +5,7 @@ import App from "./App";
 
 ReactDOM.render(
 	<>
-		<ColorModeScript />
+		<ColorModeScript initialColorMode="dark" useSystemColorMode={false} />
 		<App />
 	</>,
 	document.getElementById("root")
