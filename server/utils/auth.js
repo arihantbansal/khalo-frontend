@@ -33,7 +33,13 @@ const isAuthenticated = (req, res, next) => {
 	}
 };
 
-const hasRole = (role, req, res, next) => {
+const hasRole = (roleRequired, req, res, next) => {
+	const { role } = req.user;
+
+	if (!roleRequired) {
+		res.status(404).send("Required role must be set");
+	}
+
 	if (!role) {
 		res.status(401).send("Unauthorized");
 	} else {
@@ -41,7 +47,10 @@ const hasRole = (role, req, res, next) => {
 		if (token) {
 			const user = getUserFromToken(token);
 			if (user) {
-				if (user.roles.indexOf(role) !== -1 && ) {
+				if (
+					// user.roles.indexOf(role) !== -1 &&
+					config.ROLES.indexOf(role) >= config.ROLES.indexOf(roleRequired)
+				) {
 					next();
 				} else {
 					res.status(401).send("Unauthorized");
@@ -59,3 +68,5 @@ const hasRole = (role, req, res, next) => {
 	// 	res.status(401).send("Unauthorized");
 	// }
 };
+
+module.exports = { isAuthenticated, hasRole };
