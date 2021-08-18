@@ -9,10 +9,10 @@ const passport = require("passport");
 const path = require("path");
 
 const config = require("./utils/config");
-const restaurantsRouter = require("./controllers/notes");
+const restaurantsRouter = require("./controllers/restaurants");
 const usersRouter = require("./controllers/users");
-const mealsRouter = require("./controllers/login");
-const ordersRouter = require("./controllers/login");
+const mealsRouter = require("./controllers/meals");
+const ordersRouter = require("./controllers/orders");
 const middleware = require("./utils/middleware");
 
 // Logger middleware
