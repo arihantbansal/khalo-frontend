@@ -13,6 +13,7 @@ const restaurantsRouter = require("./controllers/restaurants");
 const usersRouter = require("./controllers/users");
 const mealsRouter = require("./controllers/meals");
 const ordersRouter = require("./controllers/orders");
+const loginRouter = require("./controllers/login");
 const middleware = require("./utils/middleware");
 
 // Logger middleware
@@ -44,6 +45,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/restaurants", restaurantsRouter);
 app.use("/api/meals", mealsRouter);
 app.use("/api/orders", ordersRouter);
+app.use("/api/login", loginRouter);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
