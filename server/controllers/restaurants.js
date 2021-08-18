@@ -18,8 +18,10 @@ restaurantsRouter.get("/:id", auth.hasRole("user"), async (req, res) => {
 
 restaurantsRouter.post("/", auth.hasRole("manager"), async (req, res) => {
 	const { meals, restaurant } = req.body;
-	const newRestaurant = Restaurant.create({
+	const newRestaurant = await Restaurant.create({
 		name: restaurant.name,
+		type: restaurant.type,
+		description: restaurant.description,
 		meals: meals.map(
 			meal =>
 				new Meal({
@@ -32,7 +34,7 @@ restaurantsRouter.post("/", auth.hasRole("manager"), async (req, res) => {
 		),
 	});
 
-	res.json(await newRestaurant.populate("meals").toJSON());
+	res.json(newRestaurant.toJSON());
 });
 
 restaurantsRouter.put("/:id", auth.hasRole("manager"), async (req, res) => {

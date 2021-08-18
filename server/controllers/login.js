@@ -24,7 +24,7 @@ loginRouter.post("/", async (request, response) => {
 		role: user.role,
 	};
 
-	const token = jwt.sign(userForToken, process.env.SECRET);
+	const token = jwt.sign(userForToken, process.env.JWT_SECRET_KEY);
 
 	response
 		.status(200)

@@ -6,6 +6,7 @@ const User = require("../models/user");
 usersRouter.post("/", async (request, response) => {
 	const { body } = request;
 
+	console.log(body);
 	if (!body.password || body.password === "") {
 		return response.status(400).json({
 			error: "Password is required",

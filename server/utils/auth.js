@@ -4,6 +4,7 @@ const User = require("../models/user");
 
 const getTokenFrom = request => {
 	const authorization = request.get("authorization");
+	console.log("auth", authorization);
 	if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
 		return authorization.substring(7);
 	}
@@ -11,11 +12,11 @@ const getTokenFrom = request => {
 };
 
 function getUserFromToken(token) {
-	return jwt.verify(token, process.env.JWT_SECRET);
+	return jwt.verify(token, process.env.JWT_SECRET_KEY);
 }
 
 const signToken = user => {
-	return jwt.sign(user, process.env.JWT_SECRET);
+	return jwt.sign(user, process.env.JWT_SECRET_KEY);
 };
 
 const isAuthenticated = () => {
@@ -37,13 +38,23 @@ const isAuthenticated = () => {
 
 const hasRole = roleRequired => {
 	return function (req, res, next) {
-		const { role } = req.user;
+		const token = getTokenFrom(req);
+		console.log("token", token);
+		let role = null;
+		if (token) {
+			const user = getUserFromToken(token);
+			console.log("user", user);
+			role = user.role;
+		} else {
+			res.status(401).send("Unauthorized");
+		}
 
 		if (!roleRequired) {
 			res.status(404).send("Required role must be set");
 		}
 
 		if (!role) {
+			console.log("idhar");
 			res.status(401).send("Unauthorized");
 		} else {
 			const token = getTokenFrom(req);

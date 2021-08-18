@@ -54,6 +54,8 @@ ordersRouter.post("/", auth.hasRole("user"), async (req, res) => {
 		// restaurant: req.body.restaurant._id,
 	}).populate();
 
+	await Order.save();
+
 	res.json(order.toJSON());
 });
 
