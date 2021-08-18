@@ -46,9 +46,7 @@ usersRouter.delete("/:id", async (request, response) => {
 
 	// Check for valid token
 	if (!request.token || !decodedToken || !decodedToken.id) {
-		return response
-			.status(401)
-			.json({ error: "Token missing or invalid." });
+		return response.status(401).json({ error: "Token missing or invalid." });
 	}
 
 	const user = await User.findById(decodedToken.id);
