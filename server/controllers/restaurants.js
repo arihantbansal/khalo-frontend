@@ -1,7 +1,7 @@
 const restaurantsRouter = require("express").Router();
 const lodash = require("lodash");
 const Restaurant = require("../models/restaurant");
-const Meal = require("../models/Meal");
+const Meal = require("../models/meal");
 const auth = require("../utils/auth");
 
 restaurantsRouter.get("/", auth.hasRole("user"), async (req, res) => {
