@@ -13,7 +13,6 @@ import {
 	CloseButton,
 } from "@chakra-ui/react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { ColorModeSwitcher } from "ColorModeSwitcher";
 
 const Navbar = () => {
 	const bg = useColorModeValue("white", "gray.500");

@@ -1,6 +1,5 @@
 import React from "react";
-import { ChakraProvider, Box, Link, VStack, Grid } from "@chakra-ui/react";
-import Home from "components/Home";
+import { ChakraProvider, Box, VStack, Grid } from "@chakra-ui/react";
 import LandingPage from "pages/LandingPage";
 import Login from "pages/Login";
 import Navbar from "components/Navbar";
@@ -20,6 +19,9 @@ const App = () => {
 									<LandingPage />
 								</Route>
 								<Route path="/login" exact>
+									<Login />
+								</Route>
+								<Route path="/restaurants" exact>
 									<Login />
 								</Route>
 							</Switch>

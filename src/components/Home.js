@@ -1,4 +1,4 @@
-import { VStack, Text, Link, Code } from "@chakra-ui/react";
+import { Text, Link, Code } from "@chakra-ui/react";
 import { Logo } from "Logo";
 
 const Home = () => {

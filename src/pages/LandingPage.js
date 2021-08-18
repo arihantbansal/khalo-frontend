@@ -6,10 +6,7 @@ import {
 	Text,
 	Button,
 	Icon,
-	IconProps,
-	Box,
 	useColorModeValue,
-	Image,
 } from "@chakra-ui/react";
 
 const LandingPage = () => {
@@ -55,7 +52,7 @@ const LandingPage = () => {
 					<Button
 						as="a"
 						variant="solid"
-						colorScheme="brand"
+						colorScheme="gray"
 						display="inline-flex"
 						alignItems="center"
 						justifyContent="center"

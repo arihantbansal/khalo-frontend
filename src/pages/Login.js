@@ -5,7 +5,6 @@ import {
 	GridItem,
 	useColorModeValue,
 	Button,
-	Stack,
 	Center,
 	Flex,
 	Icon,
@@ -85,11 +84,11 @@ const Login = () => {
 									required="true"
 								/>
 							</Flex>
-							<Button colorScheme="brand" w="full" py={2} type="submit">
+							<Button colorScheme="gray" w="full" py={2} type="submit">
 								Sign up for free
 							</Button>
 						</SimpleGrid>
-						<Flex px={6} py={4}>
+						{/* <Flex px={6} py={4}>
 							<Button
 								py={2}
 								w="full"
@@ -110,11 +109,11 @@ const Login = () => {
 								}>
 								Continue with Google
 							</Button>
-						</Flex>
+						</Flex> */}
 					</Box>
 					<chakra.p fontSize="xs" textAlign="center" color="gray.600">
 						By signing up you agree to our{" "}
-						<chakra.a color="brand.500">Terms of Service</chakra.a>
+						<chakra.a color="gray.500">Terms of Service</chakra.a>
 					</chakra.p>
 				</GridItem>
 			</SimpleGrid>
