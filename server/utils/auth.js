@@ -4,7 +4,6 @@ const User = require("../models/user");
 
 const getTokenFrom = request => {
 	const authorization = request.get("authorization");
-	console.log("auth", authorization);
 	if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
 		return authorization.substring(7);
 	}
@@ -39,7 +38,6 @@ const isAuthenticated = () => {
 const hasRole = roleRequired => {
 	return function (req, res, next) {
 		const token = getTokenFrom(req);
-		console.log("token", token);
 		let role = null;
 		if (token) {
 			const user = getUserFromToken(token);
@@ -54,7 +52,6 @@ const hasRole = roleRequired => {
 		}
 
 		if (!role) {
-			console.log("idhar");
 			res.status(401).send("Unauthorized");
 		} else {
 			const token = getTokenFrom(req);
