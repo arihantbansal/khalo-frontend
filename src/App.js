@@ -1,17 +1,11 @@
 import React from "react";
-import {
-	ChakraProvider,
-	Box,
-	Link,
-	VStack,
-	Grid,
-	theme,
-} from "@chakra-ui/react";
+import { ChakraProvider, Box, Link, VStack, Grid } from "@chakra-ui/react";
 import Home from "components/Home";
 import LandingPage from "pages/LandingPage";
 import Login from "pages/Login";
 import Navbar from "components/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import theme from "utils/theme";
 
 const App = () => {
 	return (
