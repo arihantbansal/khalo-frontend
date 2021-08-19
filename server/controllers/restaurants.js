@@ -18,20 +18,23 @@ restaurantsRouter.get("/:id", auth.hasRole("user"), async (req, res) => {
 
 restaurantsRouter.post("/", auth.hasRole("manager"), async (req, res) => {
 	const { meals, restaurant } = req.body;
+
+	const _meals = [];
+
+	for (let i = 0; i < meals.length; i++) {
+		const meal = await Meal.create({
+			name: meals[i].name,
+			price: meals[i].price,
+			description: meals[i].description,
+		});
+		_meals.push(meal);
+	}
+
 	const newRestaurant = await Restaurant.create({
 		name: restaurant.name,
 		type: restaurant.type,
 		description: restaurant.description,
-		meals: meals.map(
-			meal =>
-				new Meal({
-					name: meal.name,
-					price: meal.price,
-					description: meal.description,
-					// image: meal.image,
-					restaurant: restaurant._id,
-				})
-		),
+		meals: _meals.map(meal => meal._id),
 	});
 
 	res.json(newRestaurant.toJSON());

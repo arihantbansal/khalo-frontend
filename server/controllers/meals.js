@@ -23,6 +23,8 @@ mealsRouter.post("/", auth.hasRole("manager"), async (req, res) => {
 		description,
 	});
 
+	console.log(meal);
+
 	res.json(meal.toJSON());
 });
 

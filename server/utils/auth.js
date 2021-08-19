@@ -41,7 +41,6 @@ const hasRole = roleRequired => {
 		let role = null;
 		if (token) {
 			const user = getUserFromToken(token);
-			console.log("user", user);
 			role = user.role;
 		} else {
 			res.status(401).send("Unauthorized");
