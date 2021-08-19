@@ -11,7 +11,7 @@ import {
 	Input,
 } from "@chakra-ui/react";
 
-const Login = () => {
+const SignUp = () => {
 	return (
 		<Box px={8} py={24} mx="auto">
 			<SimpleGrid
@@ -119,4 +119,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default SignUp;

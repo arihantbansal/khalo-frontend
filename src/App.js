@@ -1,17 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ChakraProvider, Box, VStack, Grid } from "@chakra-ui/react";
 import LandingPage from "pages/LandingPage";
 import Login from "pages/Login";
-import Navbar from "components/Navbar";
+import NavBar from "components/NavBar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import theme from "utils/theme";
+import SignUp from "pages/SignUp";
+import Restaurants from "pages/Restaurants";
+import RestaurantPage from "pages/RestaurantPage";
+
+import { setCurrentUser, logoutUser } from "./actions/authActions";
+import jwt_decode from "jwt-decode";
+import { setAuthToken } from "utils/auth";
+import store from "./store";
 
 const App = () => {
+	useEffect(() => {
+		// Check for token to keep user logged in
+		if (localStorage.jwtToken) {
+			// Set auth token header auth
+			const token = localStorage.jwtToken;
+			setAuthToken(token);
+			// Decode token and get user info and exp
+			const decoded = jwt_decode(token);
+			// Set user and isAuthenticated
+			store.dispatch(setCurrentUser(decoded));
+			// Check for expired token
+			const currentTime = Date.now() / 1000; // to get in milliseconds
+			if (decoded.exp < currentTime) {
+				// Logout user
+				store.dispatch(logoutUser());
+
+				// Redirect to login
+				window.location.href = "./login";
+			}
+		}
+	}, []);
+
 	return (
 		<ChakraProvider theme={theme}>
 			<Box textAlign="center" fontSize="xl">
 				<Grid minH="100vh" p={3}>
-					<Navbar />
+					<NavBar />
 					<VStack spacing={6}>
 						<Router>
 							<Switch>
@@ -21,8 +51,14 @@ const App = () => {
 								<Route path="/login" exact>
 									<Login />
 								</Route>
+								<Route path="/signup" exact>
+									<SignUp />
+								</Route>
 								<Route path="/restaurants" exact>
-									<Login />
+									<Restaurants />
+								</Route>
+								<Route path="/restaurants/:id" exact>
+									<RestaurantPage />
 								</Route>
 							</Switch>
 						</Router>

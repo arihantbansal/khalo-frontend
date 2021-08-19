@@ -1,113 +1,144 @@
-import React from "react";
-import {
-	chakra,
-	Box,
-	Flex,
-	useColorModeValue,
-	VisuallyHidden,
-	HStack,
-	Button,
-	useDisclosure,
-	VStack,
-	IconButton,
-	CloseButton,
-} from "@chakra-ui/react";
-import { AiOutlineMenu } from "react-icons/ai";
+import { useState } from "react";
+import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
+import { Logo } from "Logo";
+import { Link as RouterLink } from "react-router-dom";
 
-const Navbar = () => {
-	const bg = useColorModeValue("white", "gray.500");
-	const mobileNav = useDisclosure();
+const NavBar = props => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const toggle = () => setIsOpen(!isOpen);
 
 	return (
-		<React.Fragment>
-			<chakra.header
-				bg={bg}
-				w="full"
-				px={{ base: 2, sm: 4 }}
-				py={4}
-				shadow="md"
-				borderRadius="lg">
-				<Flex alignItems="center" justifyContent="space-between" mx="auto">
-					<Flex>
-						<chakra.a
-							href="/"
-							title="Choc Home Page"
-							display="flex"
-							alignItems="center">
-							<VisuallyHidden>Choc</VisuallyHidden>
-						</chakra.a>
-						<chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
-							Choc
-						</chakra.h1>
-					</Flex>
-					<HStack display="flex" alignItems="center" spacing={1}>
-						<HStack
-							spacing={1}
-							mr={1}
-							color="brand.500"
-							display={{ base: "none", md: "inline-flex" }}>
-							<Button variant="ghost">Features</Button>
-							<Button variant="ghost">Pricing</Button>
-							<Button variant="ghost">Blog</Button>
-							<Button variant="ghost">Company</Button>
-							<Button variant="ghost">Sign in</Button>
-						</HStack>
-						<Button colorScheme="brand" size="sm">
-							Get Started
-						</Button>
-						<Box display={{ base: "inline-flex", md: "none" }}>
-							<IconButton
-								display={{ base: "flex", md: "none" }}
-								aria-label="Open menu"
-								fontSize="20px"
-								color={useColorModeValue("gray.800", "inherit")}
-								variant="ghost"
-								icon={<AiOutlineMenu />}
-								onClick={mobileNav.onOpen}
-							/>
-
-							<VStack
-								pos="absolute"
-								top={0}
-								left={0}
-								right={0}
-								display={mobileNav.isOpen ? "flex" : "none"}
-								flexDirection="column"
-								p={2}
-								pb={4}
-								m={2}
-								bg={bg}
-								spacing={3}
-								rounded="sm"
-								shadow="sm">
-								<CloseButton
-									aria-label="Close menu"
-									onClick={mobileNav.onClose}
-								/>
-
-								<Button w="full" variant="ghost">
-									Features
-								</Button>
-								<Button w="full" variant="ghost">
-									Pricing
-								</Button>
-								<Button w="full" variant="ghost">
-									Blog
-								</Button>
-								<Button w="full" variant="ghost">
-									Company
-								</Button>
-								<Button w="full" variant="ghost">
-									Sign in
-								</Button>
-							</VStack>
-						</Box>
-					</HStack>
-				</Flex>
-				{/* <ColorModeSwitcher /> */}
-			</chakra.header>
-		</React.Fragment>
+		<NavBarContainer {...props} className="navbar">
+			<Logo w="50px" color={["white", "white", "primary.500", "primary.500"]} />
+			<MenuToggle toggle={toggle} isOpen={isOpen} />
+			<MenuLinks isOpen={isOpen} />
+		</NavBarContainer>
 	);
 };
 
-export default Navbar;
+const CloseIcon = () => (
+	<svg width="24" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+		<title>Close</title>
+		<path
+			fill="white"
+			d="M9.00023 7.58599L13.9502 2.63599L15.3642 4.04999L10.4142 8.99999L15.3642 13.95L13.9502 15.364L9.00023 10.414L4.05023 15.364L2.63623 13.95L7.58623 8.99999L2.63623 4.04999L4.05023 2.63599L9.00023 7.58599Z"
+		/>
+	</svg>
+);
+
+const MenuIcon = () => (
+	<svg
+		width="24px"
+		viewBox="0 0 20 20"
+		xmlns="http://www.w3.org/2000/svg"
+		fill="white">
+		<title>Menu</title>
+		<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+	</svg>
+);
+
+const MenuToggle = ({ toggle, isOpen }) => {
+	return (
+		<Box display={{ base: "block", md: "none" }} onClick={toggle}>
+			{isOpen ? <CloseIcon /> : <MenuIcon />}
+		</Box>
+	);
+};
+
+const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
+	return (
+		<Link as={RouterLink} to={to}>
+			<Text display="block" {...rest}>
+				{children}
+			</Text>
+		</Link>
+	);
+};
+
+const signOut = () => {
+	localStorage.removeItem("userID");
+	localStorage.removeItem("token");
+	localStorage.removeItem("payload");
+	window.location.reload();
+};
+
+const MenuLinks = ({ isOpen }) => {
+	return (
+		<Box
+			display={{ base: isOpen ? "block" : "none", md: "block" }}
+			flexBasis={{ base: "100%", md: "auto" }}>
+			<Stack
+				spacing={8}
+				align="center"
+				justify={["center", "space-between", "flex-end", "flex-end"]}
+				direction={["column", "row", "row", "row"]}
+				pt={[4, 4, 0, 0]}>
+				<MenuItem to="/">Home</MenuItem>
+				<MenuItem to="/dashboard">Dashboard</MenuItem>
+				<MenuItem to="/quote">Quotes</MenuItem>
+				<MenuItem to="/leaderboard">Leaderboard</MenuItem>
+				<MenuItem to="/calculator">Calculators</MenuItem>
+				<MenuItem to="/about">About</MenuItem>
+				<MenuItem to="/signin">
+					{!localStorage.getItem("userID") && (
+						<Button
+							size="sm"
+							rounded="md"
+							color={["primary.500", "primary.500", "white", "white"]}
+							bg={["white", "white", "primary.500", "primary.500"]}
+							_hover={{
+								bg: [
+									"primary.100",
+									"primary.100",
+									"primary.600",
+									"primary.600",
+								],
+							}}>
+							Sign In
+						</Button>
+					)}
+				</MenuItem>
+				<MenuItem onClick={() => signOut()} isLast>
+					{localStorage.getItem("userID") && (
+						<Button
+							size="sm"
+							rounded="md"
+							color={["primary.500", "primary.500", "white", "white"]}
+							bg={["white", "white", "primary.500", "primary.500"]}
+							_hover={{
+								bg: [
+									"primary.100",
+									"primary.100",
+									"primary.600",
+									"primary.600",
+								],
+							}}>
+							Sign Out
+						</Button>
+					)}
+				</MenuItem>
+			</Stack>
+		</Box>
+	);
+};
+
+const NavBarContainer = ({ children, ...props }) => {
+	return (
+		<Flex
+			as="nav"
+			align="center"
+			justify="space-between"
+			wrap="wrap"
+			w="100%"
+			mb={8}
+			p={8}
+			bg={["primary.500", "primary.500", "transparent", "transparent"]}
+			color={["white", "white", "primary.700", "primary.500"]}
+			{...props}>
+			{children}
+		</Flex>
+	);
+};
+
+export default NavBar;
