@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
 import { ChakraProvider, Box, VStack, Grid } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
 import LandingPage from "pages/LandingPage";
 import Login from "pages/Login";
-import NavBar from "components/NavBar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import theme from "utils/theme";
 import SignUp from "pages/SignUp";
 import Restaurants from "pages/Restaurants";
 import Restaurant from "pages/RestaurantPage";
+import Orders from "pages/Orders";
+import NavBar from "components/NavBar";
+import Footer from "components/Footer";
 
+import theme from "utils/theme";
 import { setCurrentUser, logoutUser } from "redux/authAction";
-import jwt_decode from "jwt-decode";
 import { setAuthToken } from "utils/auth";
-import { useDispatch } from "react-redux";
-import Orders from "./pages/Orders";
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -70,6 +72,7 @@ const App = () => {
 							</Switch>
 						</VStack>
 					</Grid>
+					<Footer />
 				</Router>
 			</Box>
 		</ChakraProvider>

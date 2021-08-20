@@ -14,7 +14,6 @@ import {
 	Link,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-// import { loginUser } from "redux/authAction";
 import loginService from "services/login";
 import { setCurrentUser } from "redux/authAction";
 import jwt_decode from "jwt-decode";
@@ -51,6 +50,7 @@ const Login = () => {
 		const { token } = resData;
 		localStorage.setItem("jwtToken", token);
 		setAuthToken(token);
+
 		const decoded = jwt_decode(token);
 		dispatch(setCurrentUser(decoded));
 	};
