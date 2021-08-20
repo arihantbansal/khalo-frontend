@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
 	Box,
 	GridItem,
@@ -12,8 +13,49 @@ import {
 	Heading,
 	Link,
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
+// import { loginUser } from "redux/authAction";
+import loginService from "services/login";
+import { setCurrentUser } from "redux/authAction";
+import jwt_decode from "jwt-decode";
+import { setAuthToken } from "utils/auth";
+import { useDispatch } from "react-redux";
 
 const SignUp = () => {
+	const [inputValues, setInputValues] = useState(null);
+	const dispatch = useDispatch();
+
+	const handleInputChange = event => {
+		const target = event.target;
+		const { value, name } = target;
+
+		console.log(value, name);
+
+		setInputValues(prevValues => {
+			return {
+				...prevValues,
+				[name]: value,
+			};
+		});
+	};
+
+	const signupSubmit = async e => {
+		e.preventDefault();
+
+		const userData = {
+			name: inputValues?.name,
+			username: inputValues?.username,
+			password: inputValues?.password,
+		};
+
+		const resData = await loginService.login(userData);
+		const { token } = resData;
+		localStorage.setItem("jwtToken", token);
+		setAuthToken(token);
+		const decoded = jwt_decode(token);
+		dispatch(setCurrentUser(decoded));
+	};
+
 	return (
 		<Box px={8} py={24} mx="auto">
 			<SimpleGrid
@@ -57,12 +99,29 @@ const SignUp = () => {
 							borderBottom="solid 1px"
 							borderColor={useColorModeValue("gray.200", "gray.700")}>
 							<Flex>
+								<VisuallyHidden>Name</VisuallyHidden>
+								<Input
+									mt={0}
+									type="name"
+									placeholder="Name"
+									required="true"
+									value={inputValues?.name || ""}
+									name="name"
+									htmlFor="name"
+									onChange={handleInputChange}
+								/>
+							</Flex>
+							<Flex>
 								<VisuallyHidden>Username</VisuallyHidden>
 								<Input
 									mt={0}
 									type="text"
 									placeholder="Username"
 									required="true"
+									value={inputValues?.username || ""}
+									name="username"
+									htmlFor="username"
+									onChange={handleInputChange}
 								/>
 							</Flex>
 							<Flex>
@@ -72,6 +131,10 @@ const SignUp = () => {
 									type="password"
 									placeholder="Password"
 									required="true"
+									value={inputValues?.password || ""}
+									name="password"
+									htmlFor="password"
+									onChange={handleInputChange}
 								/>
 							</Flex>
 							<Button colorScheme="gray" w="full" py={2} type="submit">

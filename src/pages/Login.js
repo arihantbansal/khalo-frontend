@@ -14,10 +14,16 @@ import {
 	Link,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { loginUser } from "redux/authAction";
+// import { loginUser } from "redux/authAction";
+import loginService from "services/login";
+import { setCurrentUser } from "redux/authAction";
+import jwt_decode from "jwt-decode";
+import { setAuthToken } from "utils/auth";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
 	const [inputValues, setInputValues] = useState(null);
+	const dispatch = useDispatch();
 
 	const handleInputChange = event => {
 		const target = event.target;
@@ -33,16 +39,20 @@ const Login = () => {
 		});
 	};
 
-	const loginSubmit = e => {
+	const loginSubmit = async e => {
 		e.preventDefault();
 
 		const userData = {
 			username: inputValues?.username,
 			password: inputValues?.password,
 		};
-		console.log(userData);
-		loginUser(userData);
-		console.log("ye ho gaya");
+
+		const resData = await loginService.login(userData);
+		const { token } = resData;
+		localStorage.setItem("jwtToken", token);
+		setAuthToken(token);
+		const decoded = jwt_decode(token);
+		dispatch(setCurrentUser(decoded));
 	};
 
 	return (

@@ -14,6 +14,7 @@ const Restaurant = () => {
 		const getData = async () => {
 			const curr = await restaurantService.getSingle(id);
 			setRestaurant(curr);
+			console.log(curr);
 			setLoading(false);
 		};
 
@@ -32,7 +33,7 @@ const Restaurant = () => {
 		);
 	}
 
-	return <Box></Box>;
+	return <Box>{restaurant.name}</Box>;
 };
 
 export default Restaurant;

@@ -12,37 +12,41 @@ import Restaurant from "pages/RestaurantPage";
 import { setCurrentUser, logoutUser } from "redux/authAction";
 import jwt_decode from "jwt-decode";
 import { setAuthToken } from "utils/auth";
-import store from "./store";
+import { useDispatch } from "react-redux";
+import Orders from "./pages/Orders";
 
 const App = () => {
+	const dispatch = useDispatch();
+
 	useEffect(() => {
 		// Check for token to keep user logged in
-		if (localStorage.jwtToken) {
+		if (localStorage.getItem("jwtToken")) {
 			// Set auth token header auth
-			const token = localStorage.jwtToken;
+			const token = localStorage.getItem("jwtToken");
 			setAuthToken(token);
 			// Decode token and get user info and exp
 			const decoded = jwt_decode(token);
 			// Set user and isAuthenticated
-			store.dispatch(setCurrentUser(decoded));
+			dispatch(setCurrentUser(decoded));
 			// Check for expired token
 			const currentTime = Date.now() / 1000; // to get in milliseconds
 			if (decoded.exp < currentTime) {
 				// Logout user
-				store.dispatch(logoutUser());
+				dispatch(logoutUser());
 
 				// Redirect to login
 				window.location.href = "./login";
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
 		<ChakraProvider theme={theme}>
 			<Box textAlign="center" fontSize="xl">
 				<Router>
+					<NavBar />
 					<Grid minH="100vh" p={3}>
-						<NavBar />
 						<VStack spacing={6}>
 							<Switch>
 								<Route path="/" exact>
@@ -56,6 +60,9 @@ const App = () => {
 								</Route>
 								<Route path="/restaurants" exact>
 									<Restaurants />
+								</Route>
+								<Route path="/orders" exact>
+									<Orders />
 								</Route>
 								<Route path="/restaurants/:id" exact>
 									<Restaurant />

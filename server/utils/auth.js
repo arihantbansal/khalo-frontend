@@ -43,15 +43,15 @@ const hasRole = roleRequired => {
 			const user = getUserFromToken(token);
 			role = user.role;
 		} else {
-			res.status(401).send("Unauthorized");
+			return res.status(401).send("Unauthorized");
 		}
 
 		if (!roleRequired) {
-			res.status(404).send("Required role must be set");
+			return res.status(404).send("Required role must be set");
 		}
 
 		if (!role) {
-			res.status(401).send("Unauthorized");
+			return res.status(401).send("Unauthorized");
 		} else {
 			const token = getTokenFrom(req);
 			if (token) {
@@ -63,22 +63,16 @@ const hasRole = roleRequired => {
 					) {
 						next();
 					} else {
-						res.status(401).send("Unauthorized");
+						return res.status(401).send("Unauthorized");
 					}
 				} else {
-					res.status(401).send("Unauthorized");
+					return res.status(401).send("Unauthorized");
 				}
 			} else {
-				res.status(401).send("Unauthorized");
+				return res.status(401).send("Unauthorized");
 			}
 		}
 	};
-
-	// if (req.user.role === role) {
-	// 	next();
-	// } else {
-	// 	res.status(401).send("Unauthorized");
-	// }
 };
 
 module.exports = { isAuthenticated, hasRole };
