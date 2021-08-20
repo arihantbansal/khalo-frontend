@@ -9,7 +9,7 @@ import SignUp from "pages/SignUp";
 import Restaurants from "pages/Restaurants";
 import RestaurantPage from "pages/RestaurantPage";
 
-import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { setCurrentUser, logoutUser } from "redux/authAction";
 import jwt_decode from "jwt-decode";
 import { setAuthToken } from "utils/auth";
 import store from "./store";
@@ -40,10 +40,10 @@ const App = () => {
 	return (
 		<ChakraProvider theme={theme}>
 			<Box textAlign="center" fontSize="xl">
-				<Grid minH="100vh" p={3}>
-					<NavBar />
-					<VStack spacing={6}>
-						<Router>
+				<Router>
+					<Grid minH="100vh" p={3}>
+						<NavBar />
+						<VStack spacing={6}>
 							<Switch>
 								<Route path="/" exact>
 									<LandingPage />
@@ -61,9 +61,9 @@ const App = () => {
 									<RestaurantPage />
 								</Route>
 							</Switch>
-						</Router>
-					</VStack>
-				</Grid>
+						</VStack>
+					</Grid>
+				</Router>
 			</Box>
 		</ChakraProvider>
 	);
