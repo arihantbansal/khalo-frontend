@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import theme from "utils/theme";
 import SignUp from "pages/SignUp";
 import Restaurants from "pages/Restaurants";
-import RestaurantPage from "pages/RestaurantPage";
+import Restaurant from "pages/RestaurantPage";
 
 import { setCurrentUser, logoutUser } from "redux/authAction";
 import jwt_decode from "jwt-decode";
@@ -58,7 +58,7 @@ const App = () => {
 									<Restaurants />
 								</Route>
 								<Route path="/restaurants/:id" exact>
-									<RestaurantPage />
+									<Restaurant />
 								</Route>
 							</Switch>
 						</VStack>

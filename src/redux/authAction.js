@@ -4,10 +4,12 @@ import jwt_decode from "jwt-decode";
 
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./actionTypes";
 
+const baseURL = "http://localhost:4001/";
+
 // Register User
 export const registerUser = (userData, history) => dispatch => {
 	axios
-		.post("/api/users/", userData)
+		.post(`${baseURL}/api/users/`, userData)
 		.then(res => history.push("/login"))
 		.catch(err =>
 			dispatch({
@@ -20,13 +22,14 @@ export const registerUser = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
 	axios
-		.post("/api/login/", userData)
+		.post(`${baseURL}/api/login/`, userData)
 		.then(res => {
 			const { token } = res.data;
 			localStorage.setItem("jwtToken", token);
 			setAuthToken(token);
 			const decoded = jwt_decode(token);
 			dispatch(setCurrentUser(decoded));
+			console.log("done");
 		})
 		.catch(err =>
 			dispatch({

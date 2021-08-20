@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
 	Box,
 	GridItem,
@@ -13,8 +14,37 @@ import {
 	Link,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { loginUser } from "redux/authAction";
 
 const Login = () => {
+	const [inputValues, setInputValues] = useState(null);
+
+	const handleInputChange = event => {
+		const target = event.target;
+		const { value, name } = target;
+
+		console.log(value, name);
+
+		setInputValues(prevValues => {
+			return {
+				...prevValues,
+				[name]: value,
+			};
+		});
+	};
+
+	const loginSubmit = e => {
+		e.preventDefault();
+
+		const userData = {
+			username: inputValues?.username,
+			password: inputValues?.password,
+		};
+		console.log(userData);
+		loginUser(userData);
+		console.log("ye ho gaya");
+	};
+
 	return (
 		<Box px={8} py={24} mx="auto">
 			<SimpleGrid
@@ -44,7 +74,7 @@ const Login = () => {
 						letterSpacing="wider">
 						Login now and order to your heart's content. <br /> Don't have an
 						account yet?{" "}
-						<Link as={RouterLink} href="/signup">
+						<Link as={RouterLink} to="/signup">
 							Sign up
 						</Link>
 						.
@@ -68,7 +98,11 @@ const Login = () => {
 									mt={0}
 									type="text"
 									placeholder="Username"
-									required="true"
+									required={true}
+									value={inputValues?.username || ""}
+									name="username"
+									htmlFor="username"
+									onChange={handleInputChange}
 								/>
 							</Flex>
 							<Flex>
@@ -77,10 +111,19 @@ const Login = () => {
 									mt={0}
 									type="password"
 									placeholder="Password"
-									required="true"
+									required={true}
+									value={inputValues?.password || ""}
+									name="password"
+									htmlFor="password"
+									onChange={handleInputChange}
 								/>
 							</Flex>
-							<Button colorScheme="gray" w="full" py={2} type="submit">
+							<Button
+								colorScheme="gray"
+								w="full"
+								py={2}
+								type="submit"
+								onClick={e => loginSubmit(e)}>
 								Sign In
 							</Button>
 						</SimpleGrid>
