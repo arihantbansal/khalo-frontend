@@ -1,5 +1,4 @@
 import {
-	chakra,
 	Box,
 	GridItem,
 	useColorModeValue,
@@ -9,7 +8,11 @@ import {
 	SimpleGrid,
 	VisuallyHidden,
 	Input,
+	Text,
+	Heading,
+	Link,
 } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
 
 const Login = () => {
 	return (
@@ -23,30 +26,34 @@ const Login = () => {
 				<GridItem
 					colSpan={{ base: "auto", lg: 7 }}
 					textAlign={{ base: "center", lg: "left" }}>
-					<chakra.h1
+					<Heading
+						as="h1"
 						mb={4}
 						fontSize={{ base: "3xl", md: "4xl" }}
 						fontWeight="bold"
 						lineHeight={{ base: "shorter", md: "none" }}
 						color={useColorModeValue("gray.900", "gray.200")}
 						letterSpacing={{ base: "normal", md: "tight" }}>
-						Ready to start your journey?
-					</chakra.h1>
-					<chakra.p
+						Hungry?
+					</Heading>
+					<Text
 						mb={{ base: 10, md: 4 }}
 						fontSize={{ base: "lg", md: "xl" }}
 						fontWeight="thin"
 						color="gray.500"
 						letterSpacing="wider">
-						Low-latency voice and video feels like you’re in the same room. Wave
-						hello over video, watch friends stream their games, or gather up and
-						have a drawing session with screen share.
-					</chakra.p>
+						Login now and order to your heart's content. <br /> Don't have an
+						account yet?{" "}
+						<Link as={RouterLink} href="/signup">
+							Sign up
+						</Link>
+						.
+					</Text>
 				</GridItem>
 				<GridItem colSpan={{ base: "auto", md: 4 }}>
 					<Box as="form" mb={6} rounded="lg" shadow="xl">
 						<Center pb={0} color={useColorModeValue("gray.700", "gray.600")}>
-							<p pt={2}>Start talking now</p>
+							<p pt={2}>Login</p>
 						</Center>
 						<SimpleGrid
 							columns={1}
@@ -56,20 +63,11 @@ const Login = () => {
 							borderBottom="solid 1px"
 							borderColor={useColorModeValue("gray.200", "gray.700")}>
 							<Flex>
-								<VisuallyHidden>First Name</VisuallyHidden>
+								<VisuallyHidden>Username</VisuallyHidden>
 								<Input
 									mt={0}
 									type="text"
-									placeholder="First Name"
-									required="true"
-								/>
-							</Flex>
-							<Flex>
-								<VisuallyHidden>Email Address</VisuallyHidden>
-								<Input
-									mt={0}
-									type="email"
-									placeholder="Email Address"
+									placeholder="Username"
 									required="true"
 								/>
 							</Flex>
@@ -83,7 +81,7 @@ const Login = () => {
 								/>
 							</Flex>
 							<Button colorScheme="gray" w="full" py={2} type="submit">
-								Sign up for free
+								Sign In
 							</Button>
 						</SimpleGrid>
 						{/* <Flex px={6} py={4}>
@@ -109,10 +107,6 @@ const Login = () => {
 							</Button>
 						</Flex> */}
 					</Box>
-					<chakra.p fontSize="xs" textAlign="center" color="gray.600">
-						By signing up you agree to our{" "}
-						<chakra.a color="gray.500">Terms of Service</chakra.a>
-					</chakra.p>
 				</GridItem>
 			</SimpleGrid>
 		</Box>
