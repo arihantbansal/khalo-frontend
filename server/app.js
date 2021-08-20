@@ -5,8 +5,8 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-const passport = require("passport");
 const path = require("path");
+const rateLimit = require("express-rate-limit");
 
 const config = require("./utils/config");
 const restaurantsRouter = require("./controllers/restaurants");
@@ -37,8 +37,14 @@ mongoose
 app.use(cors());
 app.use(express.json());
 
-// Passport middleware
-app.use(passport.initialize());
+app.use(
+	rateLimit({
+		windowMs: 10 * 1000, // 10 second window
+		max: 5, // Starts blocking after 5 requests within the given window
+		message:
+			"Too many requests from this IP. The developer knows better than to not protect against brute force attacks =)",
+	})
+);
 
 // Routes
 app.use("/api/users", usersRouter);
@@ -47,15 +53,16 @@ app.use("/api/meals", mealsRouter);
 app.use("/api/orders", ordersRouter);
 app.use("/api/login", loginRouter);
 
+// Not doing that for now.
 // Serve static assets if in production
-if (process.env.NODE_ENV === "production") {
-	// Set static folder
-	app.use(express.static("../build"));
+// if (process.env.NODE_ENV === "production") {
+// 	// Set static folder
+// 	app.use(express.static("../build"));
 
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
-	});
-}
+// 	app.get("*", (req, res) => {
+// 		res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
+// 	});
+// }
 
 // Middleware
 app.use(middleware.unknownEndpoint);
