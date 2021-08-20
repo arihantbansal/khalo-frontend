@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Box, Heading, Spinner, VStack } from "@chakra-ui/react";
+import { Box, Heading, Spinner, VStack, Flex } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import restaurantService from "services/restaurants";
+import Meal from "components/Meal";
 
 const Restaurant = () => {
 	const { id } = useParams();
@@ -36,7 +37,23 @@ const Restaurant = () => {
 	return (
 		<Box>
 			<VStack>
-				<Heading>{restaurant.name}</Heading>
+				<Heading mb={5}>{restaurant.name}</Heading>
+				<Box
+					as="span"
+					bg="primary.300"
+					color="black"
+					px={3}
+					py={1}
+					rounded="full"
+					textTransform="uppercase"
+					fontSize="xs">
+					{restaurant.type}
+				</Box>
+				<Flex>
+					{restaurant.meals.map(meal => (
+						<Meal meal={meal} />
+					))}
+				</Flex>
 			</VStack>
 		</Box>
 	);
