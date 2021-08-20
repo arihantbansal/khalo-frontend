@@ -1,9 +1,18 @@
 import { useState, useEffect } from "react";
-import { Box, Spinner } from "@chakra-ui/react";
+import {
+	Box,
+	Heading,
+	Spinner,
+	VStack,
+	SimpleGrid,
+	useMediaQuery,
+} from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import restaurantService from "services/restaurants";
+import RestaurantCard from "components/RestaurantCard";
 
 const Restaurants = () => {
+	const [isNotSmallerScreen] = useMediaQuery("(min-width:1024px)");
 	const [restaurants, setRestaurants] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const dispatch = useDispatch();
@@ -31,7 +40,18 @@ const Restaurants = () => {
 		);
 	}
 
-	return <Box>{restaurants[0].name}</Box>;
+	return (
+		<Box px={10}>
+			<VStack>
+				<Heading mb={10}>Restaurants</Heading>
+				<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 20 }}>
+					{restaurants.map(restaurant => (
+						<RestaurantCard restaurant={restaurant} />
+					))}
+				</SimpleGrid>
+			</VStack>
+		</Box>
+	);
 };
 
 export default Restaurants;

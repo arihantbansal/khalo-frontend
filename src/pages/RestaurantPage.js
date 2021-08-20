@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Heading, Spinner, VStack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import restaurantService from "services/restaurants";
@@ -33,7 +33,13 @@ const Restaurant = () => {
 		);
 	}
 
-	return <Box>{restaurant.name}</Box>;
+	return (
+		<Box>
+			<VStack>
+				<Heading>{restaurant.name}</Heading>
+			</VStack>
+		</Box>
+	);
 };
 
 export default Restaurant;
