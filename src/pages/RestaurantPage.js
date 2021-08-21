@@ -8,7 +8,6 @@ import {
 	Text,
 	SimpleGrid,
 	useToast,
-	useMediaQuery,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 // import { useDispatch } from "react-redux";
@@ -22,7 +21,6 @@ const Restaurant = () => {
 	const [orderTotal, setOrderTotal] = useState(0);
 	// const dispatch = useDispatch();
 	const toast = useToast();
-	const [isNotSmallerScreen] = useMediaQuery("(min-width:1024px)");
 
 	useEffect(() => {
 		const getData = async () => {
@@ -149,10 +147,11 @@ const Restaurant = () => {
 					fontSize="xs">
 					{restaurant.type}
 				</Box>
-				<Flex>
+				<Flex my={5}>
 					<SimpleGrid
 						columns={{ base: 1, md: 3 }}
-						spacing={{ base: 5, lg: 20 }}>
+						spacing={{ base: 2, lg: 5 }}
+						spacingY={{ base: 2, lg: 5 }}>
 						{restaurant.meals.map((meal, idx) => (
 							<Meal
 								key={idx}

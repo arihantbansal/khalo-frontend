@@ -17,7 +17,7 @@ const Meal = ({ meal, onIncrement, onDecrement, checkNew }) => {
 	}, []);
 
 	return (
-		<Flex p={50} w="full" alignItems="center" justifyContent="center">
+		<Flex py={5} w="full" alignItems="center" justifyContent="center">
 			<Box
 				bg={"gray.800"}
 				maxW="sm"
