@@ -6,6 +6,7 @@ import {
 	VStack,
 	Flex,
 	useToast,
+	Button,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -33,6 +34,16 @@ const Restaurant = () => {
 	const onIncrement = index => {
 		const { meals } = restaurant;
 		const { total } = meals[index];
+
+		const newRes = {
+			...restaurant,
+			meals: [
+				...meals.slice(0, index),
+				{ ...meals[index], total: (total || 0) + 1 },
+				...meals.slice(index + 1),
+			],
+		};
+
 		setRestaurant({
 			...restaurant,
 			meals: [
@@ -41,7 +52,7 @@ const Restaurant = () => {
 				...meals.slice(index + 1),
 			],
 		});
-		console.log(total);
+
 		toast({
 			title: `Added ${meals[index].name} to cart`,
 			description: `${meals[index].name} has quantity ${meals[index].total}`,
@@ -55,14 +66,16 @@ const Restaurant = () => {
 		const { meals } = restaurant;
 		const { total } = meals[index];
 		if (!total) return;
+
 		setRestaurant({
+			...restaurant,
 			meals: [
 				...meals.slice(0, index),
 				{ ...meals[index], total: total - 1 },
 				...meals.slice(index + 1),
 			],
 		});
-		console.log(total);
+
 		toast({
 			title: `Removed ${meals[index].name} to cart`,
 			description: `${meals[index].name} has quantity ${meals[index].total}`,
@@ -120,6 +133,9 @@ const Restaurant = () => {
 							onDecrement={() => onDecrement(idx)}
 						/>
 					))}
+				</Flex>
+				<Flex>
+					<Button>Submit</Button>
 				</Flex>
 			</VStack>
 		</Box>
