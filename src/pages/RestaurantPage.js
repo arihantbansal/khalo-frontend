@@ -18,8 +18,6 @@ const Restaurant = () => {
 	const { id } = useParams();
 	const [restaurant, setRestaurant] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [orderTotal, setOrderTotal] = useState(0);
-	// const dispatch = useDispatch();
 	const toast = useToast();
 
 	useEffect(() => {
@@ -52,17 +50,6 @@ const Restaurant = () => {
 		const { meals } = restaurant;
 		const { total } = meals[index];
 
-		const newRes = {
-			...restaurant,
-			meals: [
-				...meals.slice(0, index),
-				{ ...meals[index], total: (total || 0) + 1 },
-				...meals.slice(index + 1),
-			],
-		};
-
-		console.log(newRes);
-
 		setRestaurant({
 			...restaurant,
 			meals: [
@@ -83,7 +70,15 @@ const Restaurant = () => {
 	const onDecrement = index => {
 		const { meals } = restaurant;
 		const { total } = meals[index];
-		if (!total) return;
+		if (!total) {
+			toast({
+				title: "No item added",
+				status: "error",
+				duration: 1500,
+				isClosable: true,
+			});
+			return;
+		}
 
 		setRestaurant({
 			...restaurant,
@@ -102,6 +97,12 @@ const Restaurant = () => {
 		});
 	};
 
+	const orderTotal = () => {
+		return restaurant.meals.reduce((total, meal) => {
+			return total + meal.price * (meal.total || 0);
+		}, 0);
+	};
+
 	const handleOrderSubmit = async () => {
 		const payload = {
 			total: restaurant.meals.reduce((acc, curr) => {
@@ -110,8 +111,6 @@ const Restaurant = () => {
 			meals: restaurant.meals.map(meal => meal.id),
 			restaurant: id,
 		};
-
-		// const res = await restaurantService.createOrder(payload);
 	};
 
 	if (loading) {
@@ -165,7 +164,7 @@ const Restaurant = () => {
 				</Flex>
 				<Flex justifyContent="center" alignItems="center">
 					<Box mr={3}>
-						<Text fontSize="lg">Total: {orderTotal}</Text>
+						<Text fontSize="lg">Total: {`${orderTotal()}`}</Text>
 					</Box>
 					<Button colorScheme="cyan" onClick={handleOrderSubmit}>
 						Place Order
