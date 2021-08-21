@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Box, Heading, Spinner, VStack, Flex } from "@chakra-ui/react";
+import {
+	Box,
+	Heading,
+	Spinner,
+	VStack,
+	Flex,
+	useToast,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import restaurantService from "services/restaurants";
@@ -10,6 +17,7 @@ const Restaurant = () => {
 	const [restaurant, setRestaurant] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const dispatch = useDispatch();
+	const toast = useToast();
 
 	useEffect(() => {
 		const getData = async () => {
@@ -33,6 +41,13 @@ const Restaurant = () => {
 				...meals.slice(index + 1),
 			],
 		});
+		toast({
+			title: `Added ${meals[index].name} to cart`,
+			description: `${meals[index].name} has quantity ${meals[index].total}`,
+			status: "success",
+			duration: 1500,
+			isClosable: true,
+		});
 	};
 
 	const onDecrement = index => {
@@ -46,6 +61,25 @@ const Restaurant = () => {
 				...meals.slice(index + 1),
 			],
 		});
+		toast({
+			title: `Removed ${meals[index].name} to cart`,
+			description: `${meals[index].name} has quantity ${meals[index].total}`,
+			status: "success",
+			duration: 1500,
+			isClosable: true,
+		});
+	};
+
+	const handleOrderSubmit = async () => {
+		const payload = {
+			total: restaurant.meals.reduce((acc, curr) => {
+				return acc + curr.total;
+			}, 0),
+			meals: restaurant.meals.map(meal => meal.id),
+			restaurant: id,
+		};
+
+		// const res = await restaurantService.createOrder(payload);
 	};
 
 	if (loading) {
