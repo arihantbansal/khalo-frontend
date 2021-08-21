@@ -22,6 +22,32 @@ const Restaurant = () => {
 		getData();
 	}, [id]);
 
+	const onIncrement = index => {
+		const { meals } = restaurant;
+		const { total } = meals[index];
+		setRestaurant({
+			...restaurant,
+			meals: [
+				...meals.slice(0, index),
+				{ ...meals[index], total: (total || 0) + 1 },
+				...meals.slice(index + 1),
+			],
+		});
+	};
+
+	const onDecrement = index => {
+		const { meals } = restaurant;
+		const { total } = meals[index];
+		if (!total) return;
+		setRestaurant({
+			meals: [
+				...meals.slice(0, index),
+				{ ...meals[index], total: total - 1 },
+				...meals.slice(index + 1),
+			],
+		});
+	};
+
 	if (loading) {
 		return (
 			<Spinner
@@ -50,8 +76,12 @@ const Restaurant = () => {
 					{restaurant.type}
 				</Box>
 				<Flex>
-					{restaurant.meals.map(meal => (
-						<Meal meal={meal} />
+					{restaurant.meals.map((meal, idx) => (
+						<Meal
+							meal={meal}
+							onIncrement={() => onIncrement(idx)}
+							onDecrement={() => onDecrement(idx)}
+						/>
 					))}
 				</Flex>
 			</VStack>

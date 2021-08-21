@@ -9,10 +9,11 @@ import {
 	Icon,
 	chakra,
 	Tooltip,
+	IconButton,
 } from "@chakra-ui/react";
-import { FiShoppingCart } from "react-icons/fi";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
-const Meal = ({ meal }) => {
+const Meal = ({ meal, onIncrement, onDecrement }) => {
 	const [data, setData] = useState(meal);
 
 	// useEffect(() => {}, []);
@@ -37,14 +38,14 @@ const Meal = ({ meal }) => {
 				)}
 
 				<Image
-					src={data.imageURL}
+					src={data.image}
 					alt={`Picture of ${data.name}`}
 					roundedTop="lg"
 				/>
 
 				<Box p="6">
 					<Box d="flex" alignItems="baseline">
-						{data.isNew && (
+						{data?.isNew && (
 							<Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
 								New
 							</Badge>
@@ -59,16 +60,6 @@ const Meal = ({ meal }) => {
 							isTruncated>
 							{data.name}
 						</Box>
-						<Tooltip
-							label="Add to cart"
-							bg="white"
-							placement={"top"}
-							color={"gray.800"}
-							fontSize={"1.2em"}>
-							<chakra.a href={"#"} display={"flex"}>
-								<Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"} />
-							</chakra.a>
-						</Tooltip>
 					</Flex>
 
 					<Flex justifyContent="space-between" alignContent="center">
@@ -77,6 +68,19 @@ const Meal = ({ meal }) => {
 								₹
 							</Box>{" "}
 							{data.price.toFixed(2)}
+						</Box>
+						<Box d="flex">
+							<IconButton
+								aria-label="add"
+								icon={<FaPlus />}
+								onClick={onIncrement}
+							/>
+							{data?.total || 0}
+							<IconButton
+								aria-label="subtract"
+								icon={<FaMinus />}
+								onClick={onDecrement}
+							/>
 						</Box>
 					</Flex>
 				</Box>
