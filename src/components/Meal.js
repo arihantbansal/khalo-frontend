@@ -6,8 +6,8 @@ import {
 	Image,
 	Badge,
 	Icon,
-	Tooltip,
 	IconButton,
+	Skeleton,
 } from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
@@ -52,7 +52,13 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 					roundedTop="lg"
 					boxSize="200"
 					objectFit="cover"
-					fallbackSrc="https://via.placeholder.com/150"
+					fallback={
+						<Skeleton
+							startColor="primary.200"
+							endColor="primary.900"
+							height="200px"
+						/>
+					}
 				/>
 
 				<Box p="6">
