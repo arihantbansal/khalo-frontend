@@ -57,9 +57,7 @@ const MenuItem = ({ children, isLast, to = "/", ...rest }) => {
 };
 
 const signOut = () => {
-	localStorage.removeItem("userID");
-	localStorage.removeItem("token");
-	localStorage.removeItem("payload");
+	localStorage.removeItem("jwtToken");
 	window.location.reload();
 };
 
@@ -79,8 +77,8 @@ const MenuLinks = ({ isOpen }) => {
 				<MenuItem to="/restaurants">Restaurants</MenuItem>
 				<MenuItem to="/orders">Order History</MenuItem>
 				<MenuItem to="/about">About</MenuItem>
-				<MenuItem to="/signup">
-					{!localStorage.getItem("userID") && (
+				{!localStorage.getItem("jwtToken") && (
+					<MenuItem to="/signup">
 						<Button
 							size="sm"
 							rounded="md"
@@ -96,10 +94,10 @@ const MenuLinks = ({ isOpen }) => {
 							}}>
 							Sign Up
 						</Button>
-					)}
-				</MenuItem>
-				<MenuItem onClick={() => signOut()} isLast>
-					{localStorage.getItem("userID") && (
+					</MenuItem>
+				)}
+				{localStorage.getItem("jwtToken") && (
+					<MenuItem onClick={() => signOut()}>
 						<Button
 							size="sm"
 							rounded="md"
@@ -115,8 +113,8 @@ const MenuLinks = ({ isOpen }) => {
 							}}>
 							Sign Out
 						</Button>
-					)}
-				</MenuItem>
+					</MenuItem>
+				)}
 			</Stack>
 		</Box>
 	);

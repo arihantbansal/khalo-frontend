@@ -72,7 +72,6 @@ const Restaurant = () => {
 
 		toast({
 			title: `Added ${meals[index].name} to cart`,
-			description: `${meals[index].name} has quantity ${meals[index].total}`,
 			status: "success",
 			duration: 1500,
 			isClosable: true,
@@ -95,7 +94,6 @@ const Restaurant = () => {
 
 		toast({
 			title: `Removed ${meals[index].name} to cart`,
-			description: `${meals[index].name} has quantity ${meals[index].total}`,
 			status: "success",
 			duration: 1500,
 			isClosable: true,
@@ -155,7 +153,9 @@ const Restaurant = () => {
 					))}
 				</Flex>
 				<Flex>
-					<Button>Submit</Button>
+					<Button colorScheme="cyan" onClick={handleOrderSubmit}>
+						Place Order
+					</Button>
 				</Flex>
 			</VStack>
 		</Box>
