@@ -1,12 +1,12 @@
 import React from "react";
-import { chakra, Box, Flex, useColorModeValue, Link } from "@chakra-ui/react";
+import { Box, Flex, Link, Heading, Text } from "@chakra-ui/react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link as RouterLink } from "react-router-dom";
 
 const RestaurantCard = ({ restaurant }) => {
 	return (
 		<Flex
-			bg={useColorModeValue("#F9FAFB", "gray.600")}
+			bg={"gray.600"}
 			p={5}
 			w="full"
 			alignItems="center"
@@ -18,36 +18,35 @@ const RestaurantCard = ({ restaurant }) => {
 				mx="auto"
 				px={4}
 				py={3}
-				bg={useColorModeValue("white", "gray.800")}
+				bg={"gray.800"}
 				shadow="lg"
 				rounded="md">
 				<Flex justifyContent="center" alignItems="center">
-					<chakra.span
-						bg={useColorModeValue("primary.200", "primary.300")}
-						color={useColorModeValue("primary.800", "primary.900")}
+					<Box
+						as="span"
+						bg={"primary.200"}
+						color={"black"}
 						px={3}
 						py={1}
 						rounded="full"
 						textTransform="uppercase"
 						fontSize="xs">
 						{restaurant.type}
-					</chakra.span>
+					</Box>
 				</Flex>
 
-				<Box>
-					<chakra.h1
+				<Box mt={2}>
+					<Heading
+						as="h1"
 						fontSize="lg"
 						fontWeight="bold"
 						mt={2}
-						color={useColorModeValue("gray.800", "white")}>
+						color={"white"}>
 						{restaurant.name}
-					</chakra.h1>
-					<chakra.p
-						fontSize="sm"
-						mt={2}
-						color={useColorModeValue("gray.600", "gray.300")}>
+					</Heading>
+					<Text fontSize="sm" mt={2} color={"gray.300"}>
 						{restaurant.description}
-					</chakra.p>
+					</Text>
 				</Box>
 				<Box>
 					<Flex alignItems="center" justifyContent="center" mt={4}>
@@ -55,8 +54,8 @@ const RestaurantCard = ({ restaurant }) => {
 							as={RouterLink}
 							to={`/restaurants/${restaurant.id}`}
 							mr={2}
-							color={useColorModeValue("gray.800", "gray.400")}
-							_hover={{ color: useColorModeValue("gray.700", "gray.300") }}
+							color={"gray.400"}
+							_hover={{ color: "gray.300" }}
 							cursor="pointer">
 							<AiOutlineArrowRight />
 						</Link>

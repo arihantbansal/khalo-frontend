@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {
 	Flex,
 	Circle,
@@ -35,20 +35,24 @@ const Meal = ({ meal, onIncrement, onDecrement, checkNew }) => {
 					/>
 				)}
 
-				<Image
-					src={meal.image}
-					alt={`Picture of ${meal.name}`}
-					roundedTop="lg"
-					boxSize="200"
-					objectFit="cover"
-					fallback={
-						<Skeleton
-							startColor="primary.200"
-							endColor="primary.900"
-							height="200px"
-						/>
-					}
-				/>
+				<Flex alignItems="center" justifyContent="center">
+					<Image
+						src={meal.image}
+						alt={`Picture of ${meal.name}`}
+						mt={2}
+						roundedTop="lg"
+						roundedBottom="lg"
+						boxSize="200"
+						objectFit="cover"
+						fallback={
+							<Skeleton
+								startColor="primary.200"
+								endColor="primary.900"
+								height="200px"
+							/>
+						}
+					/>
+				</Flex>
 
 				<Box p="6">
 					<Box d="flex" alignItems="baseline">
