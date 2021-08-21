@@ -24,12 +24,27 @@ const Restaurant = () => {
 		const getData = async () => {
 			const curr = await restaurantService.getSingle(id);
 			setRestaurant(curr);
-			console.log(curr);
 			setLoading(false);
 		};
 
 		getData();
 	}, [id]);
+
+	const checkNew = index => {
+		const { meals } = restaurant;
+		const { createdAt } = meals[index];
+		const date = new Date(createdAt).valueOf();
+		const now = Date.now();
+
+		setRestaurant({
+			...restaurant,
+			meals: [
+				...meals.slice(0, index),
+				{ ...meals[index], isNew: now - date < 604800000 },
+				...meals.slice(index + 1),
+			],
+		});
+	};
 
 	const onIncrement = index => {
 		const { meals } = restaurant;
@@ -43,6 +58,8 @@ const Restaurant = () => {
 				...meals.slice(index + 1),
 			],
 		};
+
+		console.log(newRes);
 
 		setRestaurant({
 			...restaurant,
@@ -99,13 +116,15 @@ const Restaurant = () => {
 
 	if (loading) {
 		return (
-			<Spinner
-				thickness="4px"
-				speed="0.65s"
-				emptyColor="gray.200"
-				color="blue.500"
-				size="xl"
-			/>
+			<Flex justifyContent="center" alignItems="center">
+				<Spinner
+					thickness="4px"
+					speed="0.65s"
+					emptyColor="gray.200"
+					color="blue.500"
+					size="xl"
+				/>
+			</Flex>
 		);
 	}
 
@@ -131,6 +150,7 @@ const Restaurant = () => {
 							meal={meal}
 							onIncrement={() => onIncrement(idx)}
 							onDecrement={() => onDecrement(idx)}
+							checkNew={() => checkNew(idx)}
 						/>
 					))}
 				</Flex>

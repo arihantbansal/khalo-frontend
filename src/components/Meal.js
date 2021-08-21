@@ -11,20 +11,9 @@ import {
 } from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
-const Meal = ({ meal, onIncrement, onDecrement }) => {
-	const [data, setData] = useState(meal);
-
+const Meal = ({ meal, onIncrement, onDecrement, checkNew }) => {
 	useEffect(() => {
-		let { createdAt } = data;
-		let date = new Date(createdAt);
-		let now = Date.now();
-
-		setData({
-			...data,
-			isNew: now - date < 604800000,
-		});
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		checkNew();
 	}, []);
 
 	return (
@@ -36,7 +25,7 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 				rounded="lg"
 				shadow="lg"
 				position="relative">
-				{data?.isNew && (
+				{meal?.isNew && (
 					<Circle
 						size="10px"
 						position="absolute"
@@ -47,8 +36,8 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 				)}
 
 				<Image
-					src={data.image}
-					alt={`Picture of ${data.name}`}
+					src={meal.image}
+					alt={`Picture of ${meal.name}`}
 					roundedTop="lg"
 					boxSize="200"
 					objectFit="cover"
@@ -63,7 +52,7 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 
 				<Box p="6">
 					<Box d="flex" alignItems="baseline">
-						{data?.isNew && (
+						{meal?.isNew && (
 							<Badge rounded="full" px="2" fontSize="0.8em" colorScheme="cyan">
 								New
 							</Badge>
@@ -80,7 +69,7 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 							as="h4"
 							lineHeight="tight"
 							isTruncated>
-							{data.name}
+							{meal.name}
 						</Box>
 					</Flex>
 
@@ -89,7 +78,7 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 							<Box as="span" color={"gray.600"} fontSize="lg">
 								₹
 							</Box>{" "}
-							{data.price.toFixed(2)}
+							{meal.price.toFixed(2)}
 						</Box>
 						<Box d="flex">
 							<IconButton
@@ -99,7 +88,7 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 								mr={2}
 								size="sm"
 							/>
-							{data?.total || 0}
+							{meal?.total || 0}
 							<IconButton
 								aria-label="subtract"
 								icon={<FaMinus />}

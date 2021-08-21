@@ -62,7 +62,7 @@ const Footer = () => {
 				spacing={4}
 				justify={{ base: "center", md: "space-between" }}
 				align={{ base: "center", md: "center" }}>
-				<Logo />
+				{/* <Logo /> */}
 				<Text>© 2021 khalo. All rights reserved</Text>
 				<Stack direction={"row"} spacing={6}>
 					<SocialButton label={"GitHub"}>
