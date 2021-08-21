@@ -5,27 +5,41 @@ const baseUrl = "http://localhost:4001/api/orders";
 const tokenStr = localStorage.getItem("jwtToken");
 const header = { headers: { Authorization: `Bearer ${tokenStr}` } };
 
-const createNew = async content => {
+const getOrderById = async id => {
+	const response = await axios.get(`${baseUrl}/${id}`, header);
+	return response.data;
+};
+
+const getUserOrder = async () => {
+	const response = await axios.get(`${baseUrl}`, header);
+	return response.data;
+};
+
+const getRestaurantOrders = async () => {
+	const response = await axios.get(`${baseUrl}/restaurant`, header);
+	return response.data;
+};
+
+const createNewOrder = async content => {
 	const response = await axios.post(baseUrl, content, header);
 	return response.data;
 };
 
-const updateRestaurant = async restaurant => {
-	const response = await axios.put(
-		`${baseUrl}/${restaurant.id}`,
-		restaurant,
-		header
-	);
+const updateOrder = async (id, content) => {
+	const response = await axios.put(`${baseUrl}/${id}`, content, header);
 	return response.data;
 };
 
-const deleteRestaurant = async id => {
+const deleteOrder = async id => {
 	const response = await axios.delete(`${baseUrl}/${id}`, header);
 	return response.data;
 };
 
 export default {
-	createNew,
-	updateRestaurant,
-	deleteRestaurant,
+	getOrderById,
+	getUserOrder,
+	getRestaurantOrders,
+	createNewOrder,
+	updateOrder,
+	deleteOrder,
 };
