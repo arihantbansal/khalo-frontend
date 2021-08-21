@@ -3,13 +3,15 @@ import {
 	Box,
 	Heading,
 	Spinner,
-	VStack,
 	Flex,
-	useToast,
 	Button,
+	Text,
+	SimpleGrid,
+	useToast,
+	useMediaQuery,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import restaurantService from "services/restaurants";
 import Meal from "components/Meal";
 
@@ -17,8 +19,10 @@ const Restaurant = () => {
 	const { id } = useParams();
 	const [restaurant, setRestaurant] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const dispatch = useDispatch();
+	const [orderTotal, setOrderTotal] = useState(0);
+	// const dispatch = useDispatch();
 	const toast = useToast();
+	const [isNotSmallerScreen] = useMediaQuery("(min-width:1024px)");
 
 	useEffect(() => {
 		const getData = async () => {
@@ -128,7 +132,11 @@ const Restaurant = () => {
 
 	return (
 		<Box>
-			<VStack>
+			<Flex
+				direction="column"
+				alignItems="center"
+				justifyContent="space-between"
+				width="80vw">
 				<Heading mb={5}>{restaurant.name}</Heading>
 				<Box
 					as="span"
@@ -142,22 +150,29 @@ const Restaurant = () => {
 					{restaurant.type}
 				</Box>
 				<Flex>
-					{restaurant.meals.map((meal, idx) => (
-						<Meal
-							key={idx}
-							meal={meal}
-							onIncrement={() => onIncrement(idx)}
-							onDecrement={() => onDecrement(idx)}
-							checkNew={() => checkNew(idx)}
-						/>
-					))}
+					<SimpleGrid
+						columns={{ base: 1, md: 3 }}
+						spacing={{ base: 5, lg: 20 }}>
+						{restaurant.meals.map((meal, idx) => (
+							<Meal
+								key={idx}
+								meal={meal}
+								onIncrement={() => onIncrement(idx)}
+								onDecrement={() => onDecrement(idx)}
+								checkNew={() => checkNew(idx)}
+							/>
+						))}
+					</SimpleGrid>
 				</Flex>
-				<Flex>
+				<Flex justifyContent="center" alignItems="center">
+					<Box mr={3}>
+						<Text fontSize="lg">Total: {orderTotal}</Text>
+					</Box>
 					<Button colorScheme="cyan" onClick={handleOrderSubmit}>
 						Place Order
 					</Button>
 				</Flex>
-			</VStack>
+			</Flex>
 		</Box>
 	);
 };
