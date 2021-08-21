@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
 	Flex,
 	Circle,
 	Box,
 	Image,
 	Badge,
-	useColorModeValue,
 	Icon,
-	chakra,
 	Tooltip,
 	IconButton,
 } from "@chakra-ui/react";
@@ -16,12 +14,24 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 const Meal = ({ meal, onIncrement, onDecrement }) => {
 	const [data, setData] = useState(meal);
 
-	// useEffect(() => {}, []);
+	useEffect(() => {
+		let { createdAt } = data;
+		let date = new Date(createdAt);
+		console.log(date);
+		console.log(Date.now());
+
+		// setData({
+		// 	...data,
+		// 	isNew: data.createdAt,
+		// });
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Flex p={50} w="full" alignItems="center" justifyContent="center">
 			<Box
-				bg={useColorModeValue("white", "gray.800")}
+				bg={"gray.800"}
 				maxW="sm"
 				borderWidth="1px"
 				rounded="lg"
@@ -41,6 +51,7 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 					src={data.image}
 					alt={`Picture of ${data.name}`}
 					roundedTop="lg"
+					boxSize="200"
 				/>
 
 				<Box p="6">
@@ -51,7 +62,11 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 							</Badge>
 						)}
 					</Box>
-					<Flex mt="1" justifyContent="space-between" alignContent="center">
+					<Flex
+						mt={1}
+						mb={2}
+						justifyContent="space-between"
+						alignContent="center">
 						<Box
 							fontSize="2xl"
 							fontWeight="semibold"
@@ -63,7 +78,7 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 					</Flex>
 
 					<Flex justifyContent="space-between" alignContent="center">
-						<Box fontSize="xl" color={useColorModeValue("gray.800", "white")}>
+						<Box fontSize="xl" color={"white"}>
 							<Box as="span" color={"gray.600"} fontSize="lg">
 								₹
 							</Box>{" "}
@@ -74,12 +89,16 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 								aria-label="add"
 								icon={<FaPlus />}
 								onClick={onIncrement}
+								mr={2}
+								size="sm"
 							/>
 							{data?.total || 0}
 							<IconButton
 								aria-label="subtract"
 								icon={<FaMinus />}
 								onClick={onDecrement}
+								ml={2}
+								size="sm"
 							/>
 						</Box>
 					</Flex>

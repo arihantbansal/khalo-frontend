@@ -41,6 +41,7 @@ const Restaurant = () => {
 				...meals.slice(index + 1),
 			],
 		});
+		console.log(restaurant);
 		toast({
 			title: `Added ${meals[index].name} to cart`,
 			description: `${meals[index].name} has quantity ${meals[index].total}`,
@@ -112,6 +113,7 @@ const Restaurant = () => {
 				<Flex>
 					{restaurant.meals.map((meal, idx) => (
 						<Meal
+							key={idx}
 							meal={meal}
 							onIncrement={() => onIncrement(idx)}
 							onDecrement={() => onDecrement(idx)}
