@@ -26,6 +26,7 @@ restaurantsRouter.post("/", auth.hasRole("manager"), async (req, res) => {
 			name: meals[i].name,
 			price: meals[i].price,
 			description: meals[i].description,
+			image: meals[i].image,
 		});
 		_meals.push(meal);
 	}
