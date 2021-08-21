@@ -41,7 +41,7 @@ const Restaurant = () => {
 				...meals.slice(index + 1),
 			],
 		});
-		console.log(restaurant);
+		console.log(total);
 		toast({
 			title: `Added ${meals[index].name} to cart`,
 			description: `${meals[index].name} has quantity ${meals[index].total}`,
@@ -62,6 +62,7 @@ const Restaurant = () => {
 				...meals.slice(index + 1),
 			],
 		});
+		console.log(total);
 		toast({
 			title: `Removed ${meals[index].name} to cart`,
 			description: `${meals[index].name} has quantity ${meals[index].total}`,

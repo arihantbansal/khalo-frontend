@@ -17,13 +17,12 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 	useEffect(() => {
 		let { createdAt } = data;
 		let date = new Date(createdAt);
-		console.log(date);
-		console.log(Date.now());
+		let now = Date.now();
 
-		// setData({
-		// 	...data,
-		// 	isNew: data.createdAt,
-		// });
+		setData({
+			...data,
+			isNew: now - date < 604800000,
+		});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -52,6 +51,8 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 					alt={`Picture of ${data.name}`}
 					roundedTop="lg"
 					boxSize="200"
+					objectFit="cover"
+					fallbackSrc="https://via.placeholder.com/150"
 				/>
 
 				<Box p="6">
@@ -78,7 +79,7 @@ const Meal = ({ meal, onIncrement, onDecrement }) => {
 					</Flex>
 
 					<Flex justifyContent="space-between" alignContent="center">
-						<Box fontSize="xl" color={"white"}>
+						<Box fontSize="xl" color={"white"} mr={3}>
 							<Box as="span" color={"gray.600"} fontSize="lg">
 								₹
 							</Box>{" "}
