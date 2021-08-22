@@ -73,13 +73,13 @@ const App = () => {
 									{token ? <Dashboard /> : <Redirect to="/login" />}
 								</Route>
 								<Route path="/restaurants" exact>
-									{token ? <Restaurants /> : <Redirect to="/signin" />}
+									{token ? <Restaurants /> : <Redirect to="/login" />}
 								</Route>
 								<Route path="/orders" exact>
-									{token ? <Orders /> : <Redirect to="/signin" />}
+									{token ? <Orders /> : <Redirect to="/login" />}
 								</Route>
 								<Route path="/restaurants/:id" exact>
-									{token ? <Restaurant /> : <Redirect to="/signin" />}
+									{token ? <Restaurant /> : <Redirect to="/login" />}
 								</Route>
 								<Route path="/404" exact>
 									<ErrorPage />
