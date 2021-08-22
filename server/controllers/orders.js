@@ -22,7 +22,7 @@ ordersRouter.get("/user/:id", auth.hasRole("user"), async (req, res) => {
 		.sort("createdAt")
 		.populate("restaurant");
 
-	res.json(orders.toJSON());
+	res.json(orders);
 });
 
 ordersRouter.get(

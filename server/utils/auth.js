@@ -4,7 +4,6 @@ const User = require("../models/user");
 
 const getTokenFrom = request => {
 	const authorization = request.get("authorization");
-	console.log(authorization);
 	if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
 		return authorization.substring(7);
 	}
