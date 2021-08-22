@@ -12,6 +12,7 @@ import jwt_decode from "jwt-decode";
 import LandingPage from "pages/LandingPage";
 import Login from "pages/Login";
 import SignUp from "pages/SignUp";
+import About from "pages/About";
 import Dashboard from "pages/Dashboard";
 import Restaurants from "pages/Restaurants";
 import Restaurant from "pages/RestaurantPage";
@@ -68,6 +69,9 @@ const App = () => {
 								</Route>
 								<Route path="/signup" exact>
 									<SignUp />
+								</Route>
+								<Route path="/about" exact>
+									<About />
 								</Route>
 								<Route path="/dashboard" exact>
 									{token ? <Dashboard /> : <Redirect to="/login" />}
