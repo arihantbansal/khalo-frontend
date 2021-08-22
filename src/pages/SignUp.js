@@ -43,10 +43,8 @@ const SignUp = () => {
 
 		const resData = await userService.addUser(userData);
 
-		if (resData.success) {
-			setInputValues(null);
-			setUserAdded(true);
-		}
+		setInputValues(null);
+		setUserAdded(true);
 	};
 
 	if (userAdded) {
@@ -143,7 +141,7 @@ const SignUp = () => {
 								py={2}
 								type="submit"
 								onClick={e => signupSubmit(e)}>
-								Sign In
+								Sign Up!
 							</Button>
 						</SimpleGrid>
 					</Box>

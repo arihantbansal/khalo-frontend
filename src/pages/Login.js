@@ -53,6 +53,8 @@ const Login = () => {
 
 		const decoded = jwt_decode(token);
 		dispatch(setCurrentUser(decoded));
+
+		setInputValues(null);
 		setUserLoggedIn(true);
 	};
 
