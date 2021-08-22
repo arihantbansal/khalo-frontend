@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
 	Box,
 	GridItem,
-	useColorModeValue,
 	Button,
 	Center,
 	Flex,
@@ -13,16 +12,12 @@ import {
 	Heading,
 	Link,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
-import loginService from "services/login";
-import { setCurrentUser } from "redux/authAction";
-import jwt_decode from "jwt-decode";
-import { setAuthToken } from "utils/auth";
-import { useDispatch } from "react-redux";
+import { Link as RouterLink, Redirect } from "react-router-dom";
+import userService from "services/user";
 
 const SignUp = () => {
 	const [inputValues, setInputValues] = useState(null);
-	const dispatch = useDispatch();
+	const [userAdded, setUserAdded] = useState(false);
 
 	const handleInputChange = event => {
 		const target = event.target;
@@ -42,18 +37,21 @@ const SignUp = () => {
 		e.preventDefault();
 
 		const userData = {
-			name: inputValues?.name,
 			username: inputValues?.username,
 			password: inputValues?.password,
 		};
 
-		const resData = await loginService.login(userData);
-		const { token } = resData;
-		localStorage.setItem("jwtToken", token);
-		setAuthToken(token);
-		const decoded = jwt_decode(token);
-		dispatch(setCurrentUser(decoded));
+		const resData = await userService.addUser(userData);
+
+		if (resData.success) {
+			setInputValues(null);
+			setUserAdded(true);
+		}
 	};
+
+	if (userAdded) {
+		return <Redirect to="/login" />;
+	}
 
 	return (
 		<Box px={8} py={24} mx="auto">
@@ -72,7 +70,7 @@ const SignUp = () => {
 						fontSize={{ base: "3xl", md: "4xl" }}
 						fontWeight="bold"
 						lineHeight={{ base: "shorter", md: "none" }}
-						color={useColorModeValue("gray.900", "gray.200")}
+						color={"gray.200"}
 						letterSpacing={{ base: "normal", md: "tight" }}>
 						Hungry?
 					</Heading>
@@ -82,13 +80,29 @@ const SignUp = () => {
 						fontWeight="thin"
 						color="gray.500"
 						letterSpacing="wider">
-						Join now to order from the best restaurants in town!
+						Sign Up now and order to your heart's content. <br /> Already have
+						an account?{" "}
+						<Link as={RouterLink} to="/login">
+							<Text
+								as="span"
+								color="primary.300"
+								_hover={{ color: "primary.100" }}>
+								Login
+							</Text>
+						</Link>
+						.
 					</Text>
 				</GridItem>
 				<GridItem colSpan={{ base: "auto", md: 4 }}>
-					<Box as="form" mb={6} rounded="lg" shadow="xl">
-						<Center pb={0} color={useColorModeValue("gray.700", "gray.600")}>
-							<p pt={2}>SignUp</p>
+					<Box
+						as="form"
+						mb={6}
+						rounded="lg"
+						boxShadow="md"
+						bg="gray.700"
+						color="gray.100">
+						<Center pb={0} pt={3}>
+							<p pt={2}>Sign Up</p>
 						</Center>
 						<SimpleGrid
 							columns={1}
@@ -96,27 +110,14 @@ const SignUp = () => {
 							py={4}
 							spacing={4}
 							borderBottom="solid 1px"
-							borderColor={useColorModeValue("gray.200", "gray.700")}>
-							<Flex>
-								<VisuallyHidden>Name</VisuallyHidden>
-								<Input
-									mt={0}
-									type="name"
-									placeholder="Name"
-									required="true"
-									value={inputValues?.name || ""}
-									name="name"
-									htmlFor="name"
-									onChange={handleInputChange}
-								/>
-							</Flex>
+							borderColor={"gray.700"}>
 							<Flex>
 								<VisuallyHidden>Username</VisuallyHidden>
 								<Input
 									mt={0}
 									type="text"
 									placeholder="Username"
-									required="true"
+									required={true}
 									value={inputValues?.username || ""}
 									name="username"
 									htmlFor="username"
@@ -129,22 +130,23 @@ const SignUp = () => {
 									mt={0}
 									type="password"
 									placeholder="Password"
-									required="true"
+									required={true}
 									value={inputValues?.password || ""}
 									name="password"
 									htmlFor="password"
 									onChange={handleInputChange}
 								/>
 							</Flex>
-							<Button colorScheme="gray" w="full" py={2} type="submit">
-								Sign up for free
+							<Button
+								colorScheme="gray"
+								w="full"
+								py={2}
+								type="submit"
+								onClick={e => signupSubmit(e)}>
+								Sign In
 							</Button>
 						</SimpleGrid>
 					</Box>
-					<Text fontSize="xs" textAlign="center" color="gray.600">
-						By signing up you agree to our{" "}
-						<Link color="gray.500">Terms of Service</Link>
-					</Text>
 				</GridItem>
 			</SimpleGrid>
 		</Box>
