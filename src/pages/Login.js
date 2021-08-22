@@ -12,7 +12,7 @@ import {
 	Heading,
 	Link,
 } from "@chakra-ui/react";
-import { Link as RouterLink, Redirect } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "redux/authAction";
@@ -59,7 +59,7 @@ const Login = () => {
 	};
 
 	if (userLoggedIn) {
-		return <Redirect to="/dashboard" />;
+		window.location.reload();
 	}
 
 	return (
