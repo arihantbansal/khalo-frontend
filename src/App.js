@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ChakraProvider, Box, VStack, Grid } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import {
@@ -12,6 +12,7 @@ import jwt_decode from "jwt-decode";
 import LandingPage from "pages/LandingPage";
 import Login from "pages/Login";
 import SignUp from "pages/SignUp";
+import Dashboard from "pages/Dashboard";
 import Restaurants from "pages/Restaurants";
 import Restaurant from "pages/RestaurantPage";
 import Orders from "pages/Orders";
@@ -24,16 +25,18 @@ import { setCurrentUser, logoutUser } from "redux/authAction";
 import { setAuthToken } from "utils/auth";
 
 const App = () => {
+	const [token, setToken] = useState(null);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		// Check for token to keep user logged in
 		if (localStorage.getItem("jwtToken")) {
 			// Set auth token header auth
-			const token = localStorage.getItem("jwtToken");
-			setAuthToken(token);
+			const jwtToken = localStorage.getItem("jwtToken");
+			setToken(jwtToken);
+			setAuthToken(jwtToken);
 			// Decode token and get user info and exp
-			const decoded = jwt_decode(token);
+			const decoded = jwt_decode(jwtToken);
 			// Set user and isAuthenticated
 			dispatch(setCurrentUser(decoded));
 			// Check for expired token
@@ -61,19 +64,22 @@ const App = () => {
 									<LandingPage />
 								</Route>
 								<Route path="/login" exact>
-									<Login />
+									{token ? <Redirect to="/dashboard" /> : <Login />}
 								</Route>
 								<Route path="/signup" exact>
 									<SignUp />
 								</Route>
+								<Route path="/dashboard" exact>
+									{token ? <Dashboard /> : <Redirect to="/login" />}
+								</Route>
 								<Route path="/restaurants" exact>
-									<Restaurants />
+									{token ? <Restaurants /> : <Redirect to="/signin" />}
 								</Route>
 								<Route path="/orders" exact>
-									<Orders />
+									{token ? <Orders /> : <Redirect to="/signin" />}
 								</Route>
 								<Route path="/restaurants/:id" exact>
-									<Restaurant />
+									{token ? <Restaurant /> : <Redirect to="/signin" />}
 								</Route>
 								<Route path="/404" exact>
 									<ErrorPage />
