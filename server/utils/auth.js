@@ -4,6 +4,7 @@ const User = require("../models/user");
 
 const getTokenFrom = request => {
 	const authorization = request.get("authorization");
+	console.log(authorization);
 	if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
 		return authorization.substring(7);
 	}
@@ -58,7 +59,6 @@ const hasRole = roleRequired => {
 				const user = getUserFromToken(token);
 				if (user) {
 					if (
-						// user.roles.indexOf(role) !== -1 &&
 						config.ROLES.indexOf(role) >= config.ROLES.indexOf(roleRequired)
 					) {
 						next();

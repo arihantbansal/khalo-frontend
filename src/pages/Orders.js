@@ -10,7 +10,8 @@ const Orders = () => {
 
 	useEffect(() => {
 		const getOrders = async () => {
-			const userOrders = await orderService.getUserOrder(user);
+			const userOrders = await orderService.getUserOrder(user.id);
+			console.log("uo", userOrders);
 			setOrders(userOrders);
 			setLoading(false);
 		};

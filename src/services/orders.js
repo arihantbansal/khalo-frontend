@@ -10,8 +10,8 @@ const getOrderById = async id => {
 	return response.data;
 };
 
-const getUserOrder = async user => {
-	const response = await axios.get(`${baseUrl}`, user, header);
+const getUserOrder = async userID => {
+	const response = await axios.get(`${baseUrl}/user/${userID}`, header);
 	return response.data;
 };
 

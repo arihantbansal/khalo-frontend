@@ -17,21 +17,25 @@ const createStateMachine = order => {
 	});
 };
 
-ordersRouter.get("/", auth.hasRole("user"), async (req, res) => {
-	const orders = await Order.find({ user: req.body.user.id })
+ordersRouter.get("/user/:id", auth.hasRole("user"), async (req, res) => {
+	const orders = await Order.find({ user: req.params.id })
 		.sort("createdAt")
 		.populate("restaurant");
 
 	res.json(orders.toJSON());
 });
 
-ordersRouter.get("/restaurant", auth.hasRole("manager"), async (req, res) => {
-	const orders = await Order.find({ restaurant: req.restaurant._id })
-		.sort("createdAt")
-		.populate("restaurant");
+ordersRouter.get(
+	"/restaurant/:id",
+	auth.hasRole("manager"),
+	async (req, res) => {
+		const orders = await Order.find({ restaurant: req.params.id })
+			.sort("createdAt")
+			.populate("restaurant");
 
-	res.json(orders.toJSON());
-});
+		res.json(orders.toJSON());
+	}
+);
 
 ordersRouter.get("/:id", auth.hasRole("user"), async (req, res) => {
 	const order = await Order.findById(req.params.id)
