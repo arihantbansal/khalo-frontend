@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { ChakraProvider, Box, VStack, Grid } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect,
+} from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import LandingPage from "pages/LandingPage";
@@ -10,6 +15,7 @@ import SignUp from "pages/SignUp";
 import Restaurants from "pages/Restaurants";
 import Restaurant from "pages/RestaurantPage";
 import Orders from "pages/Orders";
+import ErrorPage from "pages/404";
 import NavBar from "components/NavBar";
 import Footer from "components/Footer";
 
@@ -68,6 +74,12 @@ const App = () => {
 								</Route>
 								<Route path="/restaurants/:id" exact>
 									<Restaurant />
+								</Route>
+								<Route path="/404" exact>
+									<ErrorPage />
+								</Route>
+								<Route path="/">
+									<Redirect to="404" />
 								</Route>
 							</Switch>
 						</VStack>
