@@ -1,4 +1,14 @@
-import { Box, Flex, Spinner } from "@chakra-ui/react";
+import {
+	Flex,
+	Spinner,
+	Table,
+	TableCaption,
+	Thead,
+	Tr,
+	Th,
+	Td,
+	Tbody,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import orderService from "services/orders";
@@ -34,7 +44,29 @@ const Orders = () => {
 		);
 	}
 
-	return <Box></Box>;
+	return (
+		<Flex>
+			<Table variant="simple">
+				<TableCaption>Your Orders</TableCaption>
+				<Thead>
+					<Tr>
+						<Th>Restaurant</Th>
+						<Th>Total Cost</Th>
+						<Th>Date</Th>
+					</Tr>
+				</Thead>
+				<Tbody>
+					{orders.map(order => (
+						<Tr key={order.id}>
+							<Td>{`${order.restaurant.name}`}</Td>
+							<Td>₹ {order.total}</Td>
+							<Td>{order.createdAt}</Td>
+						</Tr>
+					))}
+				</Tbody>
+			</Table>
+		</Flex>
+	);
 };
 
 export default Orders;
