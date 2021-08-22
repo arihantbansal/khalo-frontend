@@ -20,13 +20,13 @@ const getRestaurantOrders = async () => {
 	return response.data;
 };
 
-const createNewOrder = async content => {
-	const response = await axios.post(baseUrl, content, header);
+const createNewOrder = async order => {
+	const response = await axios.post(baseUrl, order, header);
 	return response.data;
 };
 
-const updateOrder = async (id, content) => {
-	const response = await axios.put(`${baseUrl}/${id}`, content, header);
+const updateOrder = async (id, order) => {
+	const response = await axios.put(`${baseUrl}/${id}`, order, header);
 	return response.data;
 };
 

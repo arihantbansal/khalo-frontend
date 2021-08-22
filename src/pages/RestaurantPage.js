@@ -10,14 +10,16 @@ import {
 	useToast,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import restaurantService from "services/restaurants";
+import orderService from "services/orders";
 import Meal from "components/Meal";
 
 const Restaurant = () => {
 	const { id } = useParams();
 	const [restaurant, setRestaurant] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const user = useSelector(state => state.auth.user);
 	const toast = useToast();
 
 	useEffect(() => {
@@ -103,14 +105,29 @@ const Restaurant = () => {
 		}, 0);
 	};
 
+	const orderMeals = () => {
+		const totalMeals = [];
+		restaurant.meals.forEach(meal => {
+			if (meal.total) totalMeals.push(...Array(meal.total).fill(meal.id));
+		});
+		return totalMeals;
+	};
+
 	const handleOrderSubmit = async () => {
 		const payload = {
-			total: restaurant.meals.reduce((acc, curr) => {
-				return acc + curr.total;
-			}, 0),
-			meals: restaurant.meals.map(meal => meal.id),
+			total: orderTotal(),
+			meals: orderMeals(),
 			restaurant: id,
+			user: user.id,
 		};
+
+		const order = await orderService.createNewOrder(payload);
+		toast({
+			title: `Order #${order.id} created`,
+			status: "success",
+			duration: 1500,
+			isClosable: true,
+		});
 	};
 
 	if (loading) {

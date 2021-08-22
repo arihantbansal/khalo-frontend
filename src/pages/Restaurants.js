@@ -21,7 +21,6 @@ const Restaurants = () => {
 		const getData = async () => {
 			const curr = await restaurantService.getAll();
 			setRestaurants(curr);
-			console.log(curr);
 			setLoading(false);
 		};
 
@@ -45,8 +44,8 @@ const Restaurants = () => {
 			<VStack>
 				<Heading mb={10}>Restaurants</Heading>
 				<SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 20 }}>
-					{restaurants.map(restaurant => (
-						<RestaurantCard restaurant={restaurant} />
+					{restaurants.map((restaurant, idx) => (
+						<RestaurantCard key={idx} restaurant={restaurant} />
 					))}
 				</SimpleGrid>
 			</VStack>

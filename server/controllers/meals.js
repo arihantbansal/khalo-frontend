@@ -16,7 +16,6 @@ mealsRouter.get("/:id", auth.hasRole("user"), async (req, res) => {
 });
 
 mealsRouter.post("/", auth.hasRole("manager"), async (req, res) => {
-	console.log(req.body);
 	const { name, price, description, image } = req.body;
 	const meal = await Meal.create({
 		name,

@@ -18,7 +18,7 @@ const createStateMachine = order => {
 };
 
 ordersRouter.get("/", auth.hasRole("user"), async (req, res) => {
-	const orders = await Order.find({ user: req.body.user })
+	const orders = await Order.find({ user: req.body.user.id })
 		.sort("createdAt")
 		.populate("restaurant");
 
@@ -48,13 +48,12 @@ ordersRouter.get("/:id", auth.hasRole("user"), async (req, res) => {
 });
 
 ordersRouter.post("/", auth.hasRole("user"), async (req, res) => {
-	const order = new Order({
-		...req.body,
+	const order = await Order.create({
+		total: req.body.total,
+		meals: req.body.meals,
+		restaurant: req.body.restaurant,
 		user: req.body.user,
-		// restaurant: req.body.restaurant._id,
-	}).populate();
-
-	await Order.save();
+	});
 
 	res.json(order.toJSON());
 });
