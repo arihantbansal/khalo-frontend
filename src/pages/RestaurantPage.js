@@ -122,8 +122,14 @@ const Restaurant = () => {
 		};
 
 		const order = await orderService.createNewOrder(payload);
+
+		setRestaurant({
+			...restaurant,
+			meals: restaurant.meals.map(meal => ({ ...meal, total: 0 })),
+		});
+
 		toast({
-			title: `Order #${order.id} created`,
+			title: "Order placed",
 			status: "success",
 			duration: 1500,
 			isClosable: true,
