@@ -78,23 +78,42 @@ const MenuLinks = ({ isOpen }) => {
 				<MenuItem to="/orders">Order History</MenuItem>
 				<MenuItem to="/about">About</MenuItem>
 				{!localStorage.getItem("jwtToken") && (
-					<MenuItem to="/signup">
-						<Button
-							size="sm"
-							rounded="md"
-							color={["primary.500", "primary.500", "white", "white"]}
-							bg={["white", "white", "primary.500", "primary.500"]}
-							_hover={{
-								bg: [
-									"primary.100",
-									"primary.100",
-									"primary.600",
-									"primary.600",
-								],
-							}}>
-							Sign Up
-						</Button>
-					</MenuItem>
+					<>
+						<MenuItem to="/login">
+							<Button
+								size="sm"
+								rounded="md"
+								color={["primary.500", "primary.500", "white", "white"]}
+								bg={["white", "white", "primary.500", "primary.500"]}
+								_hover={{
+									bg: [
+										"primary.100",
+										"primary.100",
+										"primary.600",
+										"primary.600",
+									],
+								}}>
+								Login
+							</Button>
+						</MenuItem>
+						<MenuItem to="/signup">
+							<Button
+								size="sm"
+								rounded="md"
+								color={["primary.500", "primary.500", "white", "white"]}
+								bg={["white", "white", "primary.500", "primary.500"]}
+								_hover={{
+									bg: [
+										"primary.100",
+										"primary.100",
+										"primary.600",
+										"primary.600",
+									],
+								}}>
+								Sign Up
+							</Button>
+						</MenuItem>
+					</>
 				)}
 				{localStorage.getItem("jwtToken") && (
 					<MenuItem onClick={() => signOut()}>

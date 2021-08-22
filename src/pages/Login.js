@@ -90,14 +90,25 @@ const Login = () => {
 						Login now and order to your heart's content. <br /> Don't have an
 						account yet?{" "}
 						<Link as={RouterLink} to="/signup">
-							Sign up
+							<Text
+								as="span"
+								color="primary.300"
+								_hover={{ color: "primary.100" }}>
+								Sign up
+							</Text>
 						</Link>
 						.
 					</Text>
 				</GridItem>
 				<GridItem colSpan={{ base: "auto", md: 4 }}>
-					<Box as="form" mb={6} rounded="lg" shadow="xl">
-						<Center pb={0} color={"gray.600"}>
+					<Box
+						as="form"
+						mb={6}
+						rounded="lg"
+						boxShadow="md"
+						bg="gray.700"
+						color="gray.100">
+						<Center pb={0} pt={3}>
 							<p pt={2}>Login</p>
 						</Center>
 						<SimpleGrid
