@@ -7,7 +7,6 @@ import {
 	Button,
 	Stack,
 	Icon,
-	useColorModeValue,
 	createIcon,
 	Link,
 } from "@chakra-ui/react";
@@ -34,7 +33,7 @@ const ErrorPage = () => {
 						fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
 						lineHeight={"110%"}>
 						404:{" "}
-						<Text as={"span"} color={"green.400"}>
+						<Text as={"span"} color={"cyan.400"}>
 							Page Not Found
 						</Text>
 					</Heading>
@@ -53,12 +52,12 @@ const ErrorPage = () => {
 						position={"relative"}>
 						<Link as={RouterLink} to="/">
 							<Button
-								colorScheme={"green"}
-								bg={"green.400"}
+								colorScheme={"cyan"}
+								bg={"cyan.400"}
 								rounded={"full"}
 								px={6}
 								_hover={{
-									bg: "green.500",
+									bg: "cyan.500",
 								}}>
 								Go Back Home
 							</Button>
@@ -74,7 +73,7 @@ const ErrorPage = () => {
 						<Box>
 							<Icon
 								as={Arrow}
-								color={useColorModeValue("gray.800", "gray.300")}
+								color={"gray.300"}
 								w={71}
 								position={"absolute"}
 								right={-71}
