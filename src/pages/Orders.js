@@ -59,8 +59,8 @@ const Orders = () => {
 					{orders.map(order => (
 						<Tr key={order.id}>
 							<Td>{`${order.restaurant.name}`}</Td>
-							<Td>₹ {order.total}</Td>
-							<Td>{order.createdAt}</Td>
+							<Td>{`₹ ${order.total}`}</Td>
+							<Td>{`${new Date(order.createdAt).toString()}`}</Td>
 						</Tr>
 					))}
 				</Tbody>
