@@ -31,8 +31,7 @@ const Orders = () => {
 			setLoading(false);
 		};
 
-		// getOrders();
-		setOrders([]);
+		getOrders();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
