@@ -8,10 +8,11 @@ import {
 	Stack,
 	Button,
 	Link,
+	Image,
 	useMediaQuery,
 } from "@chakra-ui/react";
-
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import order from "assets/food_order.svg";
 
 const About = () => {
 	const [isNotSmallerScreen] = useMediaQuery("(min-width:770px)");
@@ -24,16 +25,8 @@ const About = () => {
 				marginTop="30px"
 				marginBottom="100px"
 				color={"primary.400"}>
-				About
+				About khalo
 			</Heading>
-			<Text
-				as="h2"
-				fontSize="40px"
-				marginTop="80px"
-				marginBottom="50px"
-				className="about-stonkr">
-				khalo
-			</Text>
 			<Flex
 				alignItems="center"
 				direction={isNotSmallerScreen ? "row" : "column"}>
@@ -79,7 +72,9 @@ const About = () => {
 					</Text>
 				</Box>
 
-				<Box>{/* <Image src={aboutsvg} w="300px" /> */}</Box>
+				<Box>
+					<Image src={order} w="300px" />{" "}
+				</Box>
 			</Flex>
 			<Text as="h2" fontSize="35px" marginTop="120px" marginBottom="70px">
 				Meet the Developer
@@ -89,10 +84,11 @@ const About = () => {
 					<Box
 						maxW={"320px"}
 						w={"full"}
-						boxShadow={"2xl"}
-						borderRadius="15px"
+						boxShadow="xl"
+						borderRadius="20px"
 						p={6}
-						textAlign={"center"}>
+						textAlign={"center"}
+						bg="gray.700">
 						<Avatar
 							size={"xl"}
 							src={"https://avatars.githubusercontent.com/u/17180950?v=4"}
@@ -103,7 +99,7 @@ const About = () => {
 						<Heading fontSize={"2xl"} fontFamily={"body"} marginBottom="20px">
 							Arihant Bansal
 						</Heading>
-						<Text fontWeight={600} color={"primary.900"} mb={4}>
+						<Text fontWeight={600} color={"gray.400"} mb={4}>
 							Undergrad @ BITS Goa
 						</Text>
 
