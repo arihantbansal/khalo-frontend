@@ -6,7 +6,6 @@ import {
 	Text,
 	Button,
 	Icon,
-	useColorModeValue,
 } from "@chakra-ui/react";
 
 const LandingPage = () => {
@@ -23,7 +22,7 @@ const LandingPage = () => {
 					fontWeight="bold"
 					lineHeight="none"
 					letterSpacing={{ base: "normal", md: "tight" }}
-					color={useColorModeValue("gray.900", "gray.100")}>
+					color={"gray.100"}>
 					All your{" "}
 					<Text
 						display={{ base: "block", lg: "inline" }}
@@ -39,7 +38,7 @@ const LandingPage = () => {
 					px={{ base: 0, lg: 24 }}
 					mb={6}
 					fontSize={{ base: "lg", md: "xl" }}
-					color={useColorModeValue("gray.600", "gray.300")}>
+					color={"gray.300"}>
 					Hellonext is a feature voting software where you can allow your users
 					to vote on features, publish roadmap, and complete your customer
 					feedback loop.
