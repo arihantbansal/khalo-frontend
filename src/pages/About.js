@@ -44,7 +44,7 @@ const About = () => {
 					</Text>
 				</Box>
 
-				<Box>
+				<Box ml={isNotSmallerScreen ? "10" : "0"}>
 					<Image src={order} w="300px" />{" "}
 				</Box>
 			</Flex>
