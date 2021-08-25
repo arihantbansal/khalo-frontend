@@ -13,7 +13,6 @@ import LandingPage from "pages/LandingPage";
 import Login from "pages/Login";
 import SignUp from "pages/SignUp";
 import About from "pages/About";
-import Dashboard from "pages/Dashboard";
 import Restaurants from "pages/Restaurants";
 import Restaurant from "pages/RestaurantPage";
 import Orders from "pages/Orders";
@@ -65,16 +64,13 @@ const App = () => {
 									<LandingPage />
 								</Route>
 								<Route path="/login" exact>
-									{token ? <Redirect to="/dashboard" /> : <Login />}
+									{token ? <Redirect to="/restaurants" /> : <Login />}
 								</Route>
 								<Route path="/signup" exact>
 									<SignUp />
 								</Route>
 								<Route path="/about" exact>
 									<About />
-								</Route>
-								<Route path="/dashboard" exact>
-									{token ? <Dashboard /> : <Redirect to="/login" />}
 								</Route>
 								<Route path="/restaurants" exact>
 									{token ? <Restaurants /> : <Redirect to="/login" />}
