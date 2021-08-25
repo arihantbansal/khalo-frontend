@@ -4,18 +4,17 @@
 </h1>
 
 # khalo
----
 
 <br>
 <h2 align="center"> Order food hassle-free from the comfort of your home
 </h2>
 <br>
 
----
+
 
 ### Deployed Version: [khalo](https://khalo-frontend.vercel.app/ "khalo")
 
----
+
 
 ## For Developers:
 
@@ -47,8 +46,6 @@ Start the app:
 $ npm start
 ```
 
----
-
 ## Features:
 
 <br>
@@ -73,4 +70,3 @@ $ npm start
 
 <br>
 
----
