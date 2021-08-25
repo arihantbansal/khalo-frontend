@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from "axios";
 
-const baseUrl = "http://localhost:4001/api/orders";
+const domain = process.env.REACT_APP_DOMAIN;
+const baseUrl = `${domain}/api/orders`;
 const tokenStr = localStorage.getItem("jwtToken");
 const header = { headers: { Authorization: `Bearer ${tokenStr}` } };
 
