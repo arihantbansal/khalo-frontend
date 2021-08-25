@@ -24,7 +24,7 @@ const About = () => {
 				fontSize="50px"
 				marginTop="30px"
 				marginBottom="100px"
-				color={"primary.400"}>
+				color={"gray.400"}>
 				About khalo
 			</Heading>
 			<Flex
@@ -76,7 +76,7 @@ const About = () => {
 					<Image src={order} w="300px" />{" "}
 				</Box>
 			</Flex>
-			<Text as="h2" fontSize="35px" marginTop="120px" marginBottom="70px">
+			<Text as="h2" fontSize="35px" marginTop="120px" marginBottom="50px">
 				Meet the Developer
 			</Text>
 			<Box>
@@ -106,7 +106,7 @@ const About = () => {
 						<Stack mt={8} direction={"row"} spacing={4}>
 							<Link
 								className="meet-dev-button"
-								href={"https://www.linkedin.com/in/arihantbansal/"}>
+								href="https://www.linkedin.com/in/arihantbansal/">
 								<Button
 									flex={1}
 									height="50px"
@@ -129,7 +129,7 @@ const About = () => {
 							</Link>
 							<Link
 								className="meet-dev-button"
-								href={"https://github.com/arihantbansal"}>
+								href="https://github.com/arihantbansal">
 								<Button
 									flex={1}
 									height="50px"
