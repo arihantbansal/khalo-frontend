@@ -17,8 +17,8 @@ import Restaurants from "pages/Restaurants";
 import Restaurant from "pages/RestaurantPage";
 import Orders from "pages/Orders";
 import ErrorPage from "pages/404";
-import NavBar from "components/NavBar";
 import Footer from "components/Footer";
+import NavBar from "components/NavBar";
 
 import theme from "utils/theme";
 import { setCurrentUser, logoutUser } from "redux/authAction";
