@@ -11,7 +11,7 @@ import { FaGithub } from "react-icons/fa";
 
 const SocialButton = ({ children, label, href }) => {
 	return (
-		<Link href={href}>
+		<Link href={href} isExternal>
 			<Button
 				bg={"whiteAlpha.100"}
 				rounded={"full"}
@@ -46,7 +46,9 @@ const Footer = () => {
 				{/* <Logo /> */}
 				<Text>© 2021 khalo. All rights reserved</Text>
 				<Stack direction={"row"} spacing={6}>
-					<SocialButton label={"GitHub"}>
+					<SocialButton
+						label={"GitHub"}
+						href="https://github.com/arihantbansal/khalo">
 						<FaGithub />
 					</SocialButton>
 				</Stack>
